@@ -6,7 +6,7 @@
 //   options.schema = process.env.SCHEMA;  // define your schema in options object
 // }
 
-/** @type {import('sequelize-cli').Migration} */
+// /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Spots', [
@@ -28,8 +28,8 @@ module.exports = {
         "city": "Houston",
         "state": "Texas",
         "country": "United States",
-        "lat": 30.051216,
-        "lng": -95.390831,
+        "lat": 32.051426,
+        "lng": -92.390844,
         "name": "Bellacollina Farms Beautiful Briones Retreat",
         "description": "Beautiful Briones ~ Bay Area Retreat.",
         "price": 200
@@ -54,8 +54,8 @@ module.exports = {
         "country": "United States",
         "lat": 28.022614,
         "lng": -82.455887,
-        "name": "Walk to the Beach from this Ocean Front Home",
-        "description": "Your beachfront escape awaits you.",
+        "name": "BestRest #4 NEAR NYC/NEWARK AIRPORT/OUTLET MALL",
+        "description": "YBRAND NEW BUILDING! Close to NYC, Gardens OUTLET Mall, Kean University, Trinitas Hospital, Prudential Center.",
         "price": 198
       },
       {
@@ -67,7 +67,7 @@ module.exports = {
         "lat": 39.897949,
         "lng": -75.044334,
         "name": "Sean's Homestead,the Green Room",
-        "description": "YBeautiful bedroom in an old world in the heart of historic Jersey City",
+        "description": "Beautiful bedroom in an old world in the heart of historic Jersey City",
         "price": 197
       },
     ], {});
