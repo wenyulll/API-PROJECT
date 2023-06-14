@@ -24,7 +24,7 @@ const app = express();
 //  with Content-Type of "application/json".
 app.use(cookieParser());
 app.use(express.json());
-
+app.use(morgan('dev'))
 // Security Middleware
 if (!isProduction) {
     // enable cors only in development
