@@ -1,45 +1,46 @@
 'use strict';
+const bcrypt = require("bcryptjs");
 
-// /** @type {import('sequelize-cli').Migration} */
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('SpotImages', [
+    options.tableName = 'SpotImages';
+    return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: '/Images/01.webp',
+        url: '../../../images/01.webp',
         preview: true
       }, {
         spotId: 2,
-        url: '/Images/02.webp',
+        url: '../../images/02.webp',
         preview: true
       },
       {
         spotId: 3,
-        url: '/Images/03.webp',
+        url: '../../../images/03.webp',
         preview: true
       },
       {
         spotId: 4,
-        url: '/Images/04.webp',
+        url: '../../../images/04.webp',
         preview: true
       },
       {
         spotId: 5,
-        url: '/Images/05.webp',
+        url: '../../../images/05.webp',
         preview: true
       }
-    ])
+    ], {})
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('SpotImages', {
+    return queryInterface.bulkDelete(options, {
       spotId: { [Op.in]: [1, 2, 3, 4, 5] }
     }, {});
   }
