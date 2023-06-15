@@ -17,14 +17,14 @@ const app = express();
 
 //Connect the morgan middleware for logging information
 //about requests and responses:
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 
 // Add the cookie-parser middleware for parsing cookies and
 //  express.json middleware for parsing JSON bodies of requests 
 //  with Content-Type of "application/json".
 app.use(cookieParser());
 app.use(express.json());
-app.use(morgan('dev'))
+
 // Security Middleware
 if (!isProduction) {
     // enable cors only in development
@@ -54,7 +54,7 @@ const routes = require('./routes');
 
 //...
 
-app.use(routes); // Connect all the routes
+app.use(routes); // Connect all the routes 需要在所有的error handler之前define
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {

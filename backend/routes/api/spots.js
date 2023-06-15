@@ -8,45 +8,45 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Op } = require('sequelize')
 const router = express.Router();
 
-const avgRate = async (spotId) => {
-    const avgR = await Review.findAll({
-        where: {
-            spotId
-        },
-        raw: true,
-        next: true,
-        attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')),
-            'avgRating'
-        ]]
-    })
-    return avgR;
-}
+// const avgRate = async (spotId) => {
+//     const avgR = await Review.findAll({
+//         where: {
+//             spotId
+//         },
+//         raw: true,
+//         next: true,
+//         attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')),
+//             'avgRating'
+//         ]]
+//     })
+//     return avgR;
+// }
 
-// Get all Spots
-router.get('/', handleValidationErrors, async (req, res) => {
-    const allSpots = await Spot.findAll({
-        raw: true,
-        attributes: [
-            'id',
-            'ownerId',
-            'address',
-            'city',
-            'state',
-            'country',
-            'lat',
-            'lng',
-            'name',
-            'description',
-            'price',
-            'createdAt',
-            'updatedAt',
-        ]
-    });
-    return res.json({
-        Spots: allSpots
-    });
+// // Get all Spots
+// router.get('/', handleValidationErrors, async (req, res) => {
+//     const allSpots = await Spot.findAll({
+//         raw: true,
+//         attributes: [
+//             'id',
+//             'ownerId',
+//             'address',
+//             'city',
+//             'state',
+//             'country',
+//             'lat',
+//             'lng',
+//             'name',
+//             'description',
+//             'price',
+//             'createdAt',
+//             'updatedAt',
+//         ]
+//     });
+//     return res.json({
+//         Spots: allSpots
+//     });
 
-});
+// });
 
 
 // // Get all Spots owned by the Current User
@@ -139,90 +139,90 @@ router.get('/current', requireAuth, async (req, res) => {
 //     return res.json(spot);
 // });
 
-// create spots
-router.post('/', requireAuth, async (req, res, next) => {
+// // create spots
+// router.post('/', requireAuth, async (req, res, next) => {
 
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+//     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-    if (!address || !city || !state || !country || !lat || !lng || !name || !description || !price) {
-        return res.status(400).json({
-            message: "Validation Error",
-            statusCode: 400,
-            errors: [{
-                "address": "Street address is required",
-                "city": "City is required",
-                "state": "State is required",
-                "country": "Country is required",
-                "lat": "Latitude is not valid",
-                "lng": "Longitude is not valid",
-                "name": "Name must be less than 50 characters",
-                "description": "Description is required",
-                "price": "Price per day is required"
-            }]
-        })
-    }
+//     if (!address || !city || !state || !country || !lat || !lng || !name || !description || !price) {
+//         return res.status(400).json({
+//             message: "Validation Error",
+//             statusCode: 400,
+//             errors: [{
+//                 "address": "Street address is required",
+//                 "city": "City is required",
+//                 "state": "State is required",
+//                 "country": "Country is required",
+//                 "lat": "Latitude is not valid",
+//                 "lng": "Longitude is not valid",
+//                 "name": "Name must be less than 50 characters",
+//                 "description": "Description is required",
+//                 "price": "Price per day is required"
+//             }]
+//         })
+//     }
 
-    const newSpot = await Spot.create({
-        //owner
-        ownerId: req.user.id,
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price,
-    })
-    return res.status(201).json(newSpot);
-});
+//     const newSpot = await Spot.create({
+//         //owner
+//         ownerId: req.user.id,
+//         address,
+//         city,
+//         state,
+//         country,
+//         lat,
+//         lng,
+//         name,
+//         description,
+//         price,
+//     })
+//     return res.status(201).json(newSpot);
+// });
 
-// edit a spot
-router.put("/:id",
-    // [
-    //     ...requireAuth,
-    //     checkPermission([1, 2]),
-    //     getEntity("spot", true),
-    //     checkSpotOwnership,
-    // ],
-    async (req, res, next) => {
-        const { address, city, state, country, lat, lng, name, descripton, price } =
-            req.body;
+// // edit a spot
+// router.put("/:id",
+//     // [
+//     //     ...requireAuth,
+//     //     checkPermission([1, 2]),
+//     //     getEntity("spot", true),
+//     //     checkSpotOwnership,
+//     // ],
+//     async (req, res, next) => {
+//         const { address, city, state, country, lat, lng, name, descripton, price } =
+//             req.body;
 
-        const updatedSpot = await req.entity.update({
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            descripton,
-            price,
-        });
+//         const updatedSpot = await req.entity.update({
+//             address,
+//             city,
+//             state,
+//             country,
+//             lat,
+//             lng,
+//             name,
+//             descripton,
+//             price,
+//         });
 
-        return res.json(updatedSpot);
-    }
-);
+//         return res.json(updatedSpot);
+//     }
+// );
 
-//delete a spot
-router.delete(
-    "/:id",
-    // [
-    //     ...requireAuth,
-    //     checkPermission([1, 2]),
-    //     getEntity("spot", true),
-    //     checkSpotOwnership,
-    // ],
-    async (req, res, next) => {
-        await req.entity.destroy();
+// //delete a spot
+// router.delete(
+//     "/:id",
+//     // [
+//     //     ...requireAuth,
+//     //     checkPermission([1, 2]),
+//     //     getEntity("spot", true),
+//     //     checkSpotOwnership,
+//     // ],
+//     async (req, res, next) => {
+//         await req.entity.destroy();
 
-        res.status(200).json({
-            message: "Successfully deleted spot.",
-        });
-    }
-);
+//         res.status(200).json({
+//             message: "Successfully deleted spot.",
+//         });
+//     }
+// );
 
 
 module.exports = router;
