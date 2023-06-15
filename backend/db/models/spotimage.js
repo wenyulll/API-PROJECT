@@ -11,10 +11,31 @@ module.exports = (sequelize, DataTypes) => {
   SpotImage.init({
     spotId: DataTypes.INTEGER,
     url: DataTypes.STRING,
-    preview: DataTypes.BOOLEAN
+    preview: DataTypes.BOOLEAN,
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      get() {
+        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+      },
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      get() {
+        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
+      },
+    }
   }, {
     sequelize,
-    modelName: 'SpotImage',
+    modelName: "SpotImage",
+    scopes: {
+      allReviews: {
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "spotId", "preview"]
+        }
+      }
+    }
   });
   return SpotImage;
 };
