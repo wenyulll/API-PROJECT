@@ -12,7 +12,7 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: '../../../images/01.webp',
+        url: '../../../images/.webp',
         preview: true
       }, {
         spotId: 2,
