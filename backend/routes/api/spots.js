@@ -190,9 +190,9 @@ router.put("/:id",
     }
 );
 
-// //delete a spot
+//delete a spot
 // router.delete(
-//     "/:id",
+//     "/:Id",
 //     // [
 //     //     ...requireAuth,
 //     //     checkPermission([1, 2]),
