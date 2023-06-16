@@ -162,33 +162,33 @@ router.post('/', requireAuth, async (req, res, next) => {
 //Add an Image to a Spot based on the Spot's id
 
 // edit a spot
-router.put("/:id",
-    // [
-    //     ...requireAuth,
-    //     checkPermission([1, 2]),
-    //     getEntity("spot", true),
-    //     checkSpotOwnership,
-    // ],
-    async (req, res, next) => {
-        const { address, city, state, country, lat, lng, name, descripton, price } =
-            req.body;
+// router.put("/:id",
+//     // [
+//     //     ...requireAuth,
+//     //     checkPermission([1, 2]),
+//     //     getEntity("spot", true),
+//     //     checkSpotOwnership,
+//     // ],
+//     async (req, res, next) => {
+//         const { address, city, state, country, lat, lng, name, descripton, price } =
+//             req.body;
 
-        const updatedSpot = await req.entity.update({
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            descripton,
-            price,
+//         const updatedSpot = await req.entity.update({
+//             address,
+//             city,
+//             state,
+//             country,
+//             lat,
+//             lng,
+//             name,
+//             descripton,
+//             price,
 
-        });
+//         });
 
-        return res.json(updatedSpot);
-    }
-);
+//         return res.json(updatedSpot);
+//     }
+// );
 
 //delete a spot
 // router.delete(
