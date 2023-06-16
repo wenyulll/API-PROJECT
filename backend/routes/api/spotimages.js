@@ -10,7 +10,8 @@ const { Op } = require('sequelize')
 
 const { Sequelize } = require('sequelize');
 
-//DELETE a spot image
+
+//Delete a Spot Image URL: /api/spot-images/:imageId
 router.delete('/:imageId', requireAuth, async (req, res) => {
     const delSpotImage = await SpotImage.findByPk(req.params.imageId, {
         include: [{

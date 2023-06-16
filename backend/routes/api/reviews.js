@@ -112,58 +112,58 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 router.put('/:reviewId', requireAuth, async (req, res, next) => {
     const newReview = await Review.findByPk(req.params.reviewId);
     const { review, stars } = req.body;
-    if (newReview) {
-        const newReviewObj = newReview.toJSON();
-        if (newReviewObj.userId === req.user.id) {
-            await newReview.update({ review, stars });
-            return res.json(newReview);
-        }
-        else if (newReviewObj.userId !== req.user.id) {
-            return res.status(403).json({
-                "message": "Not your review.",
-                "statusCode": 403
-            });
-        }
-        else if (!review || !stars) {
-            return res.status(400).json({
-                "message": "Validation error",
-                "statusCode": 400,
-                "errors": {
-                    "review": "Review text is required",
-                    "stars": "Stars must be an integer from 1 to 5",
-                }
-            });
-        }
-    }
-    else {
+
+    if (!newReview) {
         return res.status(404).json({
-            "message": "Review couldn't be found",
-            "statusCode": 404
+            message: "Review couldn't be found",
+            statusCode: 404
         });
     }
 
-})
+    const newReviewObj = newReview.toJSON();
+    if (newReviewObj.userId !== req.user.id) {
+        return res.status(403).json({
+            message: "Not your review.",
+            statusCode: 403
+        });
+    }
+
+    if (!review || !stars) {
+        return res.status(400).json({
+            message: "Validation error",
+            statusCode: 400,
+            errors: {
+                review: "Review text is required",
+                stars: "Stars must be an integer from 1 to 5"
+            }
+        });
+    }
+
+    await newReview.update({ review, stars });
+    return res.json(newReview);
+});
 
 // //Delete a review URL: /api/reviews/:reviewId
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
-    const delReview = await Review.findByPk(req.params.reviewId)
-    if (delReview) {
-        const deleteObj = delReview.toJSON();
-        if (deleteObj.userId === req.user.id) {
-            await delReview.destroy();
-            return res.json({
-                "message": "Successfully deleted",
-            });
-        } else {
-            return res.status(403).json({
-                "message": "Not your review.",
-            });
-        }
-    } else {
+    const delReview = await Review.findByPk(req.params.reviewId);
+
+    if (!delReview) {
         return res.status(404).json({
-            "message": "Review couldn't be found",
-        })
+            message: "Review couldn't be found"
+        });
     }
+
+    const deleteObj = delReview.toJSON();
+    if (deleteObj.userId !== req.user.id) {
+        return res.status(403).json({
+            message: "Not your review."
+        });
+    }
+
+    await delReview.destroy();
+    return res.json({
+        message: "Successfully deleted"
+    });
 });
 
 module.exports = router;
