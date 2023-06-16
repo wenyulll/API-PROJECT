@@ -1,5 +1,6 @@
 'use strict';
 const { Model, Validator } = require('sequelize');
+const moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -58,7 +59,21 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: [60, 60]
         }
-      }
+      },
+      // createdAt: {
+      //   type: DataTypes.DATE,
+      //   allowNull: false,
+      //   get() {
+      //     return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+      //   },
+      // },
+      // updatedAt: {
+      //   type: DataTypes.DATE,
+      //   allowNull: false,
+      //   get() {
+      //     return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
+      //   },
+      // }
     },
     {
       sequelize,

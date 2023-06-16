@@ -1,5 +1,7 @@
 'use strict';
 const { Model, Validator } = require('sequelize');
+const moment = require('moment');
+
 module.exports = (sequelize, DataTypes) => {
   class ReviewImage extends Model {
     /**
@@ -16,7 +18,21 @@ module.exports = (sequelize, DataTypes) => {
   }
   ReviewImage.init({
     reviewId: DataTypes.INTEGER,
-    url: DataTypes.STRING
+    url: DataTypes.STRING,
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      get() {
+        return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+      },
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      get() {
+        return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss');
+      },
+    }
   }, {
     sequelize,
     modelName: 'ReviewImage',

@@ -1,5 +1,6 @@
 'use strict';
 const { Model, Validator } = require('sequelize');
+const moment = require('moment');
 
 module.exports = (sequelize, DataTypes) => {
   class SpotImage extends Model {

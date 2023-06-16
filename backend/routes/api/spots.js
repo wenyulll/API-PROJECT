@@ -81,8 +81,7 @@ router.get('/current', requireAuth, async (req, res) => {
     });
 });
 
-
-//Get details of a Spot from an id
+//Get details of a Spot from an id  
 router.get("/:spotId", async (req, res, next) => {
     const spotId = req.params.spotId;
     const spot = await Spot.findOne({
@@ -121,7 +120,7 @@ router.get("/:spotId", async (req, res, next) => {
     return res.json(spot);
 });
 
-// create spots
+// Create spots
 router.post('/', requireAuth, async (req, res, next) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -160,53 +159,134 @@ router.post('/', requireAuth, async (req, res, next) => {
 });
 
 //Add an Image to a Spot based on the Spot's id
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+    const updateSpot = await Spot.findByPk(req.params.spotId);
+    const { url, preview } = req.body;
+    if (updateSpot) {
+        const spotObj = updateSpot.toJSON();
+        if (spotObj.ownerId === req.user.id) {
+            const spotImage = await SpotImage.create({
+                spotId: req.params.spotId,
+                url,
+                preview
+            });
 
-// edit a spot
-// router.put("/:id",
-//     // [
-//     //     ...requireAuth,
-//     //     checkPermission([1, 2]),
-//     //     getEntity("spot", true),
-//     //     checkSpotOwnership,
-//     // ],
-//     async (req, res, next) => {
-//         const { address, city, state, country, lat, lng, name, descripton, price } =
-//             req.body;
+            const spotImageObj = spotImage.toJSON();
 
-//         const updatedSpot = await req.entity.update({
-//             address,
-//             city,
-//             state,
-//             country,
-//             lat,
-//             lng,
-//             name,
-//             descripton,
-//             price,
+            spotImageObj.spotId = spotImage.spotId
+            spotImageObj.url = spotImage.url
+            spotImageObj.preview = spotImage.preview
 
-//         });
+            delete spotImageObj.updatedAt;
+            delete spotImageObj.createdAt;
+            delete spotImageObj.spotId;
+            return res.json(spotImageObj);
+        }
+        // else (spotObj.ownerId !== req.user.id)
+        // return res.status(403).json({
+        //     "message": "Forbidden. Sorry,you are not the owner",
+        //     "statusCode": 403
+        // })
+    }
+    else {
+        res.status(404).json({
+            message: "Spot couldn't be found"
+        });
+    }
+}
+);
 
-//         return res.json(updatedSpot);
-//     }
-// );
+// Edit a spot
+router.put('/:spotId', requireAuth, async (req, res, next) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    if (!address || !city || !state || !country || !lat || !lng || !name || !description || !price) {
+        return res.status(400).json({
+            message: "Validation Error",
+            statusCode: 400,
+            errors: [{
+                "address": "Street address is required",
+                "city": "City is required",
+                "state": "State is required",
+                "country": "Country is required",
+                "lat": "Latitude is not valid",
+                "lng": "Longitude is not valid",
+                "name": "Name must be less than 50 characters",
+                "description": "Description is required",
+                "price": "Price per day is required"
+            }]
+        })
+    }
+    const editSpot = await Spot.findByPk(req.params.spotId);
 
-//delete a spot
-// router.delete(
-//     "/:Id",
-//     // [
-//     //     ...requireAuth,
-//     //     checkPermission([1, 2]),
-//     //     getEntity("spot", true),
-//     //     checkSpotOwnership,
-//     // ],
-//     async (req, res, next) => {
-//         await req.entity.destroy();
+    if (editSpot) {
+        const editObj = editSpot.toJSON()
+        if (editObj.ownerId !== req.user.id) {
+            return res.status(403).json({
+                "message": "Forbidden. Sorry,you are not the owner",
+                "statusCode": 403
+            });
+        } else {
+            const newSpot = await editSpot.update({
+                address,
+                city,
+                state,
+                country,
+                lat,
+                lng,
+                name,
+                description,
+                price,
+            });
+            return res.json(newSpot)
+        }
 
-//         res.status(200).json({
-//             message: "Successfully deleted spot.",
-//         });
-//     }
-// );
+    } else {
+        res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
 
+})
+
+
+// Delete a a spot
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const deleteSpot = await Spot.findByPk(req.params.spotId)
+    if (deleteSpot) {
+        const deleteObj = deleteSpot.toJSON()
+        if (deleteObj.ownerId === req.user.id) {
+            await deleteSpot.destroy();
+            res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+            })
+        } else {
+            res.status(403);
+            return res.json({
+                "message": "Forbidden.Sorry,you are not the owner",
+                "statusCode": 403
+            })
+        }
+    } else {
+        return res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        });
+    }
+})
+
+//Get all Reviews by a Spot's id URL: /api/spots/:spotId/reviews
+
+//Create a Review for a Spot based on the Spot's id
+
+//Get all Bookings for a Spot based on the Spot's id URL: /api/spots/:spotId/bookings
+
+//Create a Booking from a Spot based on the Spot's id URL: /api/spots/:spotId/bookings
+
+//Delete a Spot Image URL: /api/spot-images/:imageId
+
+
+// Add Query Filters to Get All Spots 最后一个需求
 
 module.exports = router;
