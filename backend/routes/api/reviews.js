@@ -64,7 +64,7 @@ router.get("/current", requireAuth, async (req, res) => {
 });
 
 //Add an Image to a Review based on the Review's id URL: /api/reviews/:reviewId/images
-router.post('/:Id/images', requireAuth, async (req, res, next) => {
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const { url } = req.body;
     const reviews = await Review.findByPk(req.params.reviewId);
     if (!reviews) {
@@ -72,14 +72,12 @@ router.post('/:Id/images', requireAuth, async (req, res, next) => {
             .status(404)
             .json({
                 "message": "Review couldn't be found",
-                "statusCode": 404
             })
     }
     if (reviews.userId !== req.user.id) {
         res.status(403)
         return res.json({
-            "message": "Forbidden. Sorry,this is not your review.",
-            "statusCode": 403
+            "message": "Not your review",
         })
     }
     const images = await ReviewImage.findAll({
@@ -93,7 +91,6 @@ router.post('/:Id/images', requireAuth, async (req, res, next) => {
             .status(403)
             .json({
                 "message": "Maximum number of images for this resource was reached",
-                "statusCode": 403
             })
     }
     const newReview = await ReviewImage.create({
@@ -112,8 +109,61 @@ router.post('/:Id/images', requireAuth, async (req, res, next) => {
 
 
 // //Edit a Review URL: /api/reviews/:reviewId
+router.put('/:reviewId', requireAuth, async (req, res, next) => {
+    const newReview = await Review.findByPk(req.params.reviewId);
+    const { review, stars } = req.body;
+    if (newReview) {
+        const newReviewObj = newReview.toJSON();
+        if (newReviewObj.userId === req.user.id) {
+            await newReview.update({ review, stars });
+            return res.json(newReview);
+        }
+        else if (newReviewObj.userId !== req.user.id) {
+            return res.status(403).json({
+                "message": "Not your review.",
+                "statusCode": 403
+            });
+        }
+        else if (!review || !stars) {
+            return res.status(400).json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": {
+                    "review": "Review text is required",
+                    "stars": "Stars must be an integer from 1 to 5",
+                }
+            });
+        }
+    }
+    else {
+        return res.status(404).json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+        });
+    }
 
+})
 
 // //Delete a review URL: /api/reviews/:reviewId
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
+    const delReview = await Review.findByPk(req.params.reviewId)
+    if (delReview) {
+        const deleteObj = delReview.toJSON();
+        if (deleteObj.userId === req.user.id) {
+            await delReview.destroy();
+            return res.json({
+                "message": "Successfully deleted",
+            });
+        } else {
+            return res.status(403).json({
+                "message": "Not your review.",
+            });
+        }
+    } else {
+        return res.status(404).json({
+            "message": "Review couldn't be found",
+        })
+    }
+});
 
 module.exports = router;
