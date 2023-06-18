@@ -2,24 +2,128 @@ const express = require('express')
 const bcrypt = require('bcryptjs');
 
 const { Spot, SpotImage, User, ReviewImage, Review, Booking, sequelize } = require('../../db/models')
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Op } = require('sequelize')
 const router = express.Router();
 const { Sequelize } = require('sequelize');
 
+const validateSpotQuery = [
+    query("page")
+        .default(0)
+        .isInt({ min: 0, max: 10 })
+        .withMessage("Page must be greater than or equal to 0"),
+    query("size")
+        .default(20)
+        .isInt({ min: 0, max: 20 })
+        .withMessage("Size must be greater than or equal to 0"),
+    query("minLat")
+        .optional({ checkFalsy: true })
+        .isDecimal()
+        .withMessage("Minimum latitude is invalid"),
+    query("maxLat")
+        .optional({ checkFalsy: true })
+        .isDecimal()
+        .withMessage("Maximum latitude is invalid"),
+    query("minLng")
+        .optional({ checkFalsy: true })
+        .isDecimal()
+        .withMessage("Minimum longitude is invalid"),
+    query("maxLng")
+        .optional({ checkFalsy: true })
+        .isDecimal()
+        .withMessage("Maximum longitude is invalid"),
+    query("minPrice")
+        .optional({ checkFalsy: true })
+        .isDecimal({ min: 0 })
+        .withMessage("Minimum price must be greater than or equal to 0"),
+    query("maxPrice")
+        .optional({ checkFalsy: true })
+        .isDecimal({ min: 0 })
+        .withMessage("Maximum price must be greater than or equal to 0"),
+    handleValidationErrors
+
+]
+
 // Get all Spots
-router.get('/', handleValidationErrors, async (req, res) => {
+router.get('/', validateSpotQuery, async (req, res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } =
+        req.query;
+
     const where = {};
+
+    if (minLat && !maxLat) {
+        where.lat = { [Op.gte]: minLat };
+    }
+
+    if (maxLat && !minLat) {
+        where.lat = { [Op.lte]: maxLat };
+    }
+
+    if (minLat & maxLat) {
+        where.lat = {
+            [Op.and]: {
+                [Op.gte]: minLat,
+                [Op.lte]: maxLat,
+            },
+        };
+    }
+
+    if (minLng && !maxLng) {
+        where.lng = { [Op.gte]: minLng };
+    }
+
+    if (maxLng && !minLng) {
+        where.lng = { [Op.lte]: maxLng };
+    }
+
+    if (minLng & maxLng) {
+        where.lng = {
+            [Op.and]: {
+                [Op.gte]: minLng,
+                [Op.lte]: maxLng,
+            },
+        };
+    }
+
+    if (minPrice && !maxPrice) {
+        where.price = { [Op.gte]: minPrice };
+    }
+
+    if (maxPrice && !minPrice) {
+        where.price = { [Op.lte]: maxPrice };
+    }
+
+    if (minPrice & maxPrice) {
+        where.price = {
+            [Op.and]: {
+                [Op.gte]: minPrice,
+                [Op.lte]: maxPrice,
+            },
+        };
+    }
     const allSpots = await Spot.findAll({
         where,
-        attributes: {
-            include: [
-                [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"],
-                [Sequelize.col("SpotImages.url"), "previewImage"],
-            ],
-        },
+        attributes: [
+            'id',
+            'ownerId',
+            'address',
+            'city',
+            'state',
+            'country',
+            'lat',
+            'lng',
+            'name',
+            'description',
+            'price',
+            'createdAt',
+            'updatedAt',
+            [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"],
+            [Sequelize.col("SpotImages.url"), "previewImage"],
+
+        ],
+        raw: true,
         include: [
             {
                 model: Review,
@@ -39,7 +143,7 @@ router.get('/', handleValidationErrors, async (req, res) => {
     });
 
     return res.json({
-        Spots: allSpots
+        Spots: allSpots, page, size
     });
 });
 
@@ -88,27 +192,40 @@ router.get("/:spotId", async (req, res, next) => {
         where: {
             id: spotId,
         },
-        attributes: {
-            include: [
-                [Sequelize.fn("COUNT", Sequelize.col("Reviews.id")), "numReviews"],
-                [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgStarRating"]
-            ],
-        },
+        attributes: [
+            "id",
+            "ownerId",
+            "address",
+            "city",
+            "state",
+            "country",
+            "lat",
+            "lng",
+            "name",
+            "description",
+            "price",
+            "createdAt",
+            "updatedAt",
+            [Sequelize.fn("COUNT", Sequelize.col("Reviews.id")), "numReviews"],
+            [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgStarRating"]
+        ],
         include: [
+            {
+                model: SpotImage,
+                as: "SpotImages",
+                attributes: ["id", "url", "preview"],
+            },
             {
                 model: User,
                 attributes: ["id", "firstName", "lastName"],
+                as: "Owner",
             },
             {
                 model: Review,
                 attributes: [],
             },
-            {
-                model: SpotImage,
-                attributes: ["id", "url", "preview"],
-            },
         ],
-        group: ["Spot.id", "spotImages.id", "User.id",]
+        group: ["Spot.id", "spotImages.id", "Owner.id"]
     });
 
     if (!spot) {
@@ -117,7 +234,46 @@ router.get("/:spotId", async (req, res, next) => {
         return next(err);
     }
 
-    return res.json(spot);
+    const {
+        createdAt,
+        updatedAt,
+        id,
+        ownerId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        numReviews,
+        avgStarRating,
+        SpotImages,
+        Owner
+    } = spot.toJSON();
+    reorderedSpots = {
+        id,
+        ownerId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        createdAt,
+        updatedAt,
+        numReviews,
+        avgStarRating,
+        SpotImages,
+        Owner
+    };
+
+    return res.json(reorderedSpots);
 });
 
 // Create spots
@@ -155,7 +311,39 @@ router.post('/', requireAuth, async (req, res, next) => {
         description,
         price,
     })
-    return res.status(201).json(newSpot);
+
+
+    const {
+        createdAt_c,
+        updatedAt_c,
+        id_c,
+        ownerId_c,
+        address_c,
+        city_c,
+        state_c,
+        country_c,
+        lat_c,
+        lng_c,
+        name_c,
+        description_c,
+        price_c,
+    } = newSpot.toJSON();
+    reorderedSpots = {
+        id_c,
+        ownerId_c,
+        address_c,
+        city_c,
+        state_c,
+        country_c,
+        lat_c,
+        lng_c,
+        name_c,
+        description_c,
+        price_c,
+        createdAt_c,
+        updatedAt_c,
+    };
+    return res.status(201).json(reorderedSpots);
 });
 
 //Add an Image to a Spot based on the Spot's id
@@ -288,9 +476,11 @@ router.get('/:spotId/reviews', async (req, res, next) => {
             },
             include: [{
                 model: User,
+                // as: "Owner",
                 attributes: ['id', 'firstName', 'lastName']
             }, {
-                model: ReviewImage,
+                model: SpotImage,
+                // as: "spotImages",
                 attributes: ['id', 'url']
             }]
         });

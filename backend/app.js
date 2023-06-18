@@ -75,7 +75,21 @@ app.use((err, _req, _res, next) => {
     if (err instanceof ValidationError) {
         let errors = {};
         for (let error of err.errors) {
-            errors[error.path] = error.message;
+            // errors[error.path] = error.message;
+            switch (error.message) {
+
+                case 'usernameNotUnique':
+                    err.message = "User already exists";
+                    errors[error.path] = "User with that username already exists";
+                    err.status = 500;
+                    break;
+
+                case 'emailNotUnique':
+                    err.message = "User already exists";
+                    errors[error.path] = "User with that email already exists";
+                    err.status = 500;
+                    break;
+            }
         }
         err.title = 'Validation error';
         err.errors = errors;
