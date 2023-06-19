@@ -10,6 +10,23 @@ const { Op } = require('sequelize')
 
 const { Sequelize } = require('sequelize');
 
+const validateBooking = [
+    check("startDate")
+        .exists({ checkFalsy: true })
+        .withMessage("Invalid start date"),
+    check("endDate")
+        .exists({ checkFalsy: true })
+        .withMessage("Invalid end date"),
+    check("endDate")
+        .custom((endDate, { req }) => {
+            if (endDate <= req.body.startDate) {
+                throw new Error("endDate cannot come before startDate")
+            }
+            return true;
+        }),
+    handleValidationErrors,
+];
+
 //Get all of the Current User's Bookings
 // router.get('/current', requireAuth, async (req, res, next) => {
 //     const userBookings = await Booking.findAll({
@@ -68,29 +85,17 @@ router.get('/current', requireAuth, async (req, res, next) => {
     }
 
     // Sort userBookings based on the createdAt property in descending order
-    userBookings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    userBookings.sort((a, b) => new Date(a.id) - new Date(b.id));
 
     res.json({ Bookings: userBookings });
 });
 
 
 //edit booking
-router.put('/:bookingId', requireAuth, async (req, res) => {
+router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     const { startDate, endDate } = req.body;
     let userId = req.user.id;
     let bookingId = parseInt(req.params.bookingId);
-
-    // booking end date is bigger than start date
-    if (startDate >= endDate) {
-        res.status(400);
-        return res.json({
-            message: "Validation error",
-            statusCode: 400,
-            errors: {
-                endDate: "endDate cannot come before startDate"
-            }
-        })
-    }
 
     //check booking exist
     const booking = await Booking.findByPk(bookingId)
@@ -103,18 +108,17 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     }
 
     //can't edit a booking past the end date
-    const today = new Date();
+    const today = new Date().toISOString().split('T')[0];
     if (booking.toJSON().endDate < today) {
-        res.status(403);
+        res.status(400);
         return res.json({
             message: "Past bookings can't be modified",
-            statusCode: 403,
+            statusCode: 400,
         })
     }
 
-
     //can't edit booking to a past date
-    if (new Date(startDate) < today || new Date(endDate) < today) {
+    if (startDate < today || endDate < today) {
         res.status(403);
         return res.json({
             message: "booking can't use past date",
@@ -159,7 +163,26 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             })
         }
         booking.update({ startDate: startDate, endDate: endDate });
-        return res.json(booking);
+        const {
+            createdAt: createdAt_c,
+            updatedAt: updatedAt_c,
+            id: id_c,
+            spotId: spotId_c,
+            userId: userId_c,
+            startDate: startDate_c,
+            endDate: endDate_c
+        } = booking.toJSON()
+        reorderedBooking = {
+            id: id_c,
+            spotId: spotId_c,
+            userId: userId_c,
+            startDate: startDate_c,
+            endDate: endDate_c,
+            createdAt: createdAt_c,
+            updatedAt: updatedAt_c
+        }
+
+        return res.json(reorderedBooking);
 
     } else {
         res.status(403);
@@ -191,9 +214,9 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
             if (delObj.startDate <= currentDate) {
 
-                return res.status(403).json({
+                return res.status(400).json({
                     "message": "Bookings that have been started can't be deleted",
-                    "statusCode": 403
+                    "statusCode": 400
                 });
             } else {
 
@@ -209,7 +232,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
             res.status(403);
             return res.json({
-                "message": "Forbidden.Sorry,this is not your booking",
+                "message": "Forbidden. You are neither the spot owner nor booking user.",
                 "statusCode": 403
             });
         }
@@ -223,11 +246,5 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         });
     }
 });
-
-
-
-
-
-
 
 module.exports = router;

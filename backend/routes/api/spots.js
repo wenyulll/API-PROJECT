@@ -41,13 +41,13 @@ const validateSpot = [
 ];
 const validateSpotQuery = [
     query("page")
-        .default(0)
-        .isInt({ min: 0, max: 10 })
-        .withMessage("Page must be greater than or equal to 0"),
+        .default(1)
+        .isInt({ min: 1, max: 10 })
+        .withMessage("Page must be greater than or equal to 1"),
     query("size")
         .default(20)
-        .isInt({ min: 0, max: 20 })
-        .withMessage("Size must be greater than or equal to 0"),
+        .isInt({ min: 1, max: 20 })
+        .withMessage("Size must be greater than or equal to 1"),
     query("minLat")
         .optional({ checkFalsy: true })
         .isDecimal()
@@ -109,6 +109,8 @@ router.get('/', validateSpotQuery, async (req, res) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } =
         req.query;
 
+    page = parseInt(page);
+    size = parseInt(size);
     const where = {};
 
     if (minLat && !maxLat) {
@@ -161,6 +163,9 @@ router.get('/', validateSpotQuery, async (req, res) => {
             },
         };
     }
+    // let pagination = {}
+    // pagination.limit = size;
+    // pagination.offset = size * (page - 1);
     const allSpots = await Spot.findAll({
         where,
         attributes: [
@@ -177,7 +182,7 @@ router.get('/', validateSpotQuery, async (req, res) => {
             'price',
             'createdAt',
             'updatedAt',
-            [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"],
+            [Sequelize.fn("ROUND", Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 2), "avgRating"],
             [Sequelize.col("SpotImages.url"), "previewImage"],
 
         ],
@@ -198,11 +203,12 @@ router.get('/', validateSpotQuery, async (req, res) => {
                 required: false
             },
         ],
-        group: ["Spot.id", "SpotImages.url"]
+        group: ["Spot.id", "SpotImages.url"],
+        // ...pagination
     });
 
     return res.json({
-        Spots: allSpots, page, size
+        Spots: allSpots.slice(size * (page - 1), size * page), page, size
     });
 });
 
@@ -217,7 +223,7 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         attributes: {
             include: [
-                [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"],
+                [Sequelize.fn("ROUND", Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 2), "avgRating"],
                 [Sequelize.col("SpotImages.url"), "previewImage"],
             ],
         },
@@ -269,7 +275,7 @@ router.get("/:spotId", async (req, res, next) => {
             "createdAt",
             "updatedAt",
             [Sequelize.fn("COUNT", Sequelize.col("Reviews.id")), "numReviews"],
-            [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgStarRating"]
+            [Sequelize.fn("ROUND", Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 2), "avgStarRating"]
         ],
         include: [
             {
@@ -718,7 +724,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
         let err_flg = 0;
         let error;
         for (let i in bookings) {
-            if (startDate >= bookings[i].startDate && startDate <= bookings[i].endDate) {
+            if ((startDate >= bookings[i].startDate && startDate <= bookings[i].endDate) || (bookings[i].endDate >= startDate && bookings[i].endDate <= endDate)) {
                 if (err_flg === 0) {
                     err_flg = 1;
                     error = new Error("Sorry, this spot is already booked for the specified dates");
@@ -727,7 +733,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
                 }
                 error.errors["startDate"] = "Start data conflicts with an esiting booking";
             }
-            if (endDate >= bookings[i].startDate && endDate <= bookings[i].endDate) {
+            if ((endDate >= bookings[i].startDate && endDate <= bookings[i].endDate) || (bookings[i].startDate >= startDate && bookings[i].startDate <= endDate)) {
                 if (err_flg === 0) {
                     err_flg = 1;
                     error = new Error("Sorry, this spot is already booked for the specified dates");
@@ -777,9 +783,6 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
             }
         )
     }
-})
-
-
-// Add Query Filters to Get All Spots 最后一个需求
+});
 
 module.exports = router;
