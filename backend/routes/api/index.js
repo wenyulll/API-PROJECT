@@ -25,9 +25,9 @@ router.use("/reviews", reviewsRouter);
 
 router.use("/bookings", bookingsRouter)
 
-router.use("/spotimages", spotImagesRouter)
+router.use("/spot-images", spotImagesRouter)
 
-router.use("/reviewimages", reviewImagesRouter)
+router.use("/review-images", reviewImagesRouter)
 
 
 // router.get("/test", (req, res) => {
