@@ -10,16 +10,16 @@ const { Op } = require('sequelize')
 
 const { Sequelize } = require('sequelize');
 
-// const validateReview = [
-//     check("review")
-//         .exists({ checkFalsy: true })
-//         .withMessage("Review text is required"),
-//     check("stars")
-//         .exists({ checkFalsy: true })
-//         .isInt({ min: 1, max: 5 })
-//         .withMessage("Stars must be an integer from 1 to 5"),
-//     handleValidationErrors,
-// ];
+const validateReview = [
+    check("review")
+        .exists({ checkFalsy: true })
+        .withMessage("Review text is required"),
+    check("stars")
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors,
+];
 
 //Get all Reviews of the Current User
 router.get("/current", requireAuth, async (req, res) => {
@@ -38,6 +38,7 @@ router.get("/current", requireAuth, async (req, res) => {
                 model: Spot,
                 include: {
                     model: SpotImage,
+                    as: "previewImage",
                     required: false,
                     where: {
                         preview: true,
@@ -109,7 +110,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
 
 // //Edit a Review URL: /api/reviews/:reviewId
-router.put('/:reviewId', requireAuth, async (req, res, next) => {
+router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => {
     const newReview = await Review.findByPk(req.params.reviewId);
     const { review, stars } = req.body;
 
@@ -128,19 +129,37 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
         });
     }
 
-    if (!review || !stars) {
-        return res.status(400).json({
-            message: "Validation error",
-            statusCode: 400,
-            errors: {
-                review: "Review text is required",
-                stars: "Stars must be an integer from 1 to 5"
-            }
-        });
-    }
+    // if (!review || !stars) {
+    //     return res.status(400).json({
+    //         message: "Validation error",
+    //         statusCode: 400,
+    //         errors: {
+    //             review: "Review text is required",
+    //             stars: "Stars must be an integer from 1 to 5"
+    //         }
+    //     });
+    // }
 
     await newReview.update({ review, stars });
-    return res.json(newReview);
+    const {
+        createdAt: createdAt_c,
+        updatedAt: updatedAt_c,
+        id: id_c,
+        spotId: spotId_c,
+        userId: userId_c,
+        review: review_c,
+        stars: stars_c
+    } = newReview.toJSON();
+    reorderedReview = {
+        id: id_c,
+        userId: userId_c,
+        spotId: spotId_c,
+        review: review_c,
+        stars: stars_c,
+        createdAt: createdAt_c,
+        updatedAt: updatedAt_c,
+    };
+    return res.json(reorderedReview);
 });
 
 // //Delete a review URL: /api/reviews/:reviewId

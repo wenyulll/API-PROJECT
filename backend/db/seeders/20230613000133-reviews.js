@@ -14,49 +14,37 @@ module.exports = {
         userId: 1,
         spotId: 1,
         review: "This was an good spot!",
-        stars: 4.2,
-        createdAt: 'Now',
-        updatedAt: 'Now'
+        stars: 4.2
       },
       {
         userId: 2,
         spotId: 1,
         review: "This was an nice spot!",
-        stars: 4.8,
-        createdAt: 'Now',
-        updatedAt: 'Now'
+        stars: 4.8
       },
       {
         userId: 2,
         spotId: 2,
         review: "This was an awesome spot!",
-        stars: 4,
-        createdAt: 'Now',
-        updatedAt: 'Now'
+        stars: 4
       },
       {
         userId: 3,
         spotId: 3,
         review: "This was an great spot!",
-        stars: 3.8,
-        createdAt: 'Now',
-        updatedAt: 'Now'
+        stars: 3.8
       },
       {
         userId: 4,
         spotId: 4,
         review: "This was an fabulous spot!",
-        stars: 5,
-        createdAt: 'Now',
-        updatedAt: 'Now'
+        stars: 5
       },
       {
         userId: 5,
         spotId: 5,
         review: "This was an wonderful spot!",
-        stars: 3.9,
-        createdAt: 'Now',
-        updatedAt: 'Now'
+        stars: 3.9
       }
     ], {})
   },
