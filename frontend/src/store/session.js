@@ -48,7 +48,7 @@ const sessionReducer = (state = initialState, action) => {
             return state;
     }
 };
-/* thunk action */
+
 export const restoreUser = () => async (dispatch) => {
     const response = await csrfFetch("/api/session");
     const data = await response.json();
