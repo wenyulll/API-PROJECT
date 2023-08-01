@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import Spots from "./components/Spots";
+import SpotDetails from "./components/SpotDetails";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -15,11 +18,17 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (<Switch>
+      {isLoaded && <Switch>
+        {/* <Route exact path={"/"}>
+          <Spots />
+        </Route> */}
         <Route exact path={"/"}>
           <Spots />
         </Route>
-        <Route>
+        <Route exact path={"/spots/:spotId"}>
+          <SpotDetails />
+        </Route>
+        {/* <Route>
 
         </Route>
         <Route>
@@ -27,14 +36,8 @@ function App() {
         </Route>
         <Route>
 
-        </Route>
-        <Route>
-
-        </Route>
-        <Route>
-
-        </Route>
-      </Switch>)}
+        </Route> */}
+      </Switch>}
     </>
   );
 }
