@@ -23,10 +23,10 @@ function SpotIndexItem({ spot, page }) {
                     <div className='spotIndexItem-DetailsContainer'>
                         <div className='spotIndexItem-header'>
                             <span className='spotIndexItem-location'>{spot.city}, {spot.state}</span>
-                            <span className='spotIndexItem-stars'><i className='fa-solid fa-star' />{spot.avgRating ? spot.avgRating.toFixed(2) : 'New'}</span>
+                            <span className='spotIndexItem-stars'><i className='fa-solid fa-star' />{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>
                         </div>
                         <div>
-                            <span className='spotIndexItem-price links'>${spot?.price ? parseInt(spot.price).toFixed(2) : ''}</span>
+                            <span className='spotIndexItem-price links'>${spot?.price ? parseInt(spot.price).toFixed(1) : ''}</span>
                             <span> night</span>
                         </div>
                     </div>
