@@ -3,39 +3,40 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from "./ProfileButton";
-import classes from "./index.module.css";
-import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
+// import classes from "./index.module.css";
+// import OpenModalButton from "../OpenModalButton";
+// import LoginFormModal from "../LoginFormModal";
 import logo from '../../images/CATBNBLOGO.png'
+import './Navigation.css'
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector((state) => state.session.user); //根据是否有用户信息，决定显示不同的导航内容
 
+    let sessionLinks;
+    if (sessionUser) {
+        sessionLinks = (
+            <Link to='/spots/new' className='header-create-new-spot links'>Create a New Spot</Link>
+        );
+    }
     return (
-        <nav>
-            <NavLink exact to="/">
-                <img
-                    className={classes.home}
-                    alt=""
-                    src={logo}
-                ></img>
+        <div className='navigation-header'>
+            <NavLink className='Home-icon' exact to="/">
+                <div className='nagivation-logo-title'>
+                    <img alt='logo' className='logo' src={logo} />
+                    <div>
+                        <a className='header-title links'>catbnb</a>
+                    </div>
+                </div>
             </NavLink>
-            <div className={classes["nav-right"]}>
-                {sessionUser && (
-                    <Link className={classes.host} to="/hosting">
-                        Catbnb your home
-                    </Link>
+            <div className='sessionLinks'>
+                {isLoaded && sessionLinks}
+                {isLoaded && (
+                    <div>
+                        <ProfileButton user={sessionUser} />
+                    </div>
                 )}
-                {/* {!sessionUser && (
-                    <OpenModalButton
-                        className="host"
-                        buttonText="Airbnb your home"
-                        modalComponent={<LoginFormModal />}
-                    />
-                )} */}
-                {isLoaded && <ProfileButton user={sessionUser} />}
             </div>
-        </nav>
+        </div>
     );
 }
 

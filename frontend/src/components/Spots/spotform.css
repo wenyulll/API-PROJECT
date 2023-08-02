@@ -1,0 +1,133 @@
+.spot-form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 500;
+    font-size: 14;
+}
+
+.spot-form-div {
+    border-bottom: 1px black solid;
+    padding-bottom: 20px;
+}
+
+.location-blurb {
+    font-size: 14;
+}
+
+.country-input {
+    width: 500;
+}
+
+.street-input {
+    width: 500;
+}
+
+.spot-form-City-State {
+    display: flex;
+    justify-content: space-between;
+}
+
+.spot-form-city {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.form-comma {
+    align-self: flex-end;
+}
+
+.city-input {
+    width: 290;
+}
+
+.spot-form-state {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    justify-self: flex-end;
+}
+
+.state-input {
+    width: 200;
+    justify-self: flex-end;
+}
+
+.spot-form-lat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.spot-form-lng {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-self: flex-end;
+    justify-content: space-between;
+}
+
+.spot-form-lat-lng {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lat-input {
+    width: 245;
+}
+
+.lng-input {
+    width: 245;
+}
+
+.form-textarea {
+    width: 500;
+    height: 150
+}
+
+.name-input {
+    width: 500;
+}
+
+.price-input {
+    width: 480;
+    margin-left: 10px;
+}
+
+.form-photos {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-images {
+    margin: 10px 0px;
+}
+
+#create-form-submit-button {
+    margin-top: 30px;
+    width: 130px;
+    height: 40px;
+    align-self: center;
+    background-color: ff385c;
+    color: white;
+    box-shadow: 3px 3px black;
+    border: 2px black solid;
+}
+
+.errors-below {
+    padding-top: 5px;
+    align-self: flex-start;
+}
+
+.spot-form-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.errors-photos {
+    align-self: flex-start;
+}
