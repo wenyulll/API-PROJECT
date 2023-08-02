@@ -12,26 +12,26 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: '../../../images/.webp',
+        url: '../../images/01-01.webp',
         preview: true
       }, {
         spotId: 2,
-        url: '../../images/02.webp',
+        url: '../../images/01-02.webp',
         preview: true
       },
       {
         spotId: 3,
-        url: '../../../images/03.webp',
+        url: '../../../images/01-03.webp',
         preview: true
       },
       {
         spotId: 4,
-        url: '../../../images/04.webp',
+        url: '../../../images/01-04.webp',
         preview: true
       },
       {
         spotId: 5,
-        url: '../../../images/05.webp',
+        url: '../../../images/01-05.webp',
         preview: true
       }
     ], {})
@@ -45,3 +45,4 @@ module.exports = {
     }, {});
   }
 };
+

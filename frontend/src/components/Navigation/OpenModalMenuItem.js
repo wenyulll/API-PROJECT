@@ -17,7 +17,7 @@ function OpenModalMenuItem({
     };
 
     return (
-        <li onClick={onClick}>{itemText}</li>
+        <li onClick={onClick}>{itemText}</li>  //点击的时候将itemtext放在列表里面显示
     );
 }
 

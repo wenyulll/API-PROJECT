@@ -4,6 +4,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import classes from "./LoginForm.css";
 
 function LoginFormModal() {
     const dispatch = useDispatch();
@@ -25,6 +26,11 @@ function LoginFormModal() {
             });
     };
 
+    const demoLoginHandler = () => {
+        dispatch(
+            sessionActions.login({ credential: "Demo-lition", password: "password" })
+        ).then(closeModal);
+    };
     return (
         <>
             <h1>Log In</h1>
@@ -51,6 +57,13 @@ function LoginFormModal() {
                     <p>{errors.credential}</p>
                 )}
                 <button type="submit">Log In</button>
+                <button
+                    type="button"
+                    className={classes.login}
+                    onClick={demoLoginHandler}
+                >
+                    Demo User
+                </button>
             </form>
         </>
     );

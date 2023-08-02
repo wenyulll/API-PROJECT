@@ -158,37 +158,40 @@ const spotsReducer = (state = initialState, action) => {
             newState.allSpots = allSpots
             return newState
 
-        // case ONE_SPOT:
-        //     newState = { ...state }
-        //     newState.allSpots = action.spot;
-        //     return newState;
+        case ONE_SPOT:
+            newState = { ...state }
+            newState.allSpots = action.spot;
+            console.log('newState')
+            console.log(newState.allSpots.name)
+            return newState;
 
-        // case ADD_SPOT:
-        //     newState = { ...state }
-        //     newState.allSpots = { ...state.allSpots, [action.spot.id]: action.spot };
-        //     newState.spot = { ...state.spot, ...action.spot }
-        //     return newState;
 
-        // case CURRENT_SPOTS:
-        //     newState = {}
-        //     action.spots.Spots.forEach(spot => {
-        //         allSpots[spot.id] = spot;
-        //     })
-        // case UPDATE_SPOT:
-        //     newState = { ...state }
-        //     newState.allSpots = { ...state.allSpots, [action.spot.id]: action.spot };
-        //     newState.spot = { ...state.spot, ...action.spot }
-        //     return newState;
+        case ADD_SPOT:
+            newState = { ...state }
+            newState.allSpots = { ...state.allSpots, [action.spot.id]: action.spot };
+            newState.spot = { ...state.spot, ...action.spot }
+            return newState;
 
-        // case DELETE_SPOT:
-        //     newState = { ...state }
-        //     delete newState.allSpots[action.spotId]
+        case CURRENT_SPOTS:
+            newState = {}
+            action.spots.Spots.forEach(spot => {
+                allSpots[spot.id] = spot;
+            })
+        case UPDATE_SPOT:
+            newState = { ...state }
+            newState.allSpots = { ...state.allSpots, [action.spot.id]: action.spot };
+            newState.spot = { ...state.spot, ...action.spot }
+            return newState;
 
-        // case ADD_IMG:
-        //     newState = { ...state }
-        //     newState.spot = action.payload.spot
-        //     newState.spot.spotImages = [action.payload.img]
-        //     return newState;
+        case DELETE_SPOT:
+            newState = { ...state }
+            delete newState.allSpots[action.spotId]
+
+        case ADD_IMG:
+            newState = { ...state }
+            newState.spot = action.payload.spot
+            newState.spot.spotImages = [action.payload.img]
+            return newState;
         default: return state;
     }
 }
