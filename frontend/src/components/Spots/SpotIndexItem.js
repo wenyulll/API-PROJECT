@@ -1,6 +1,6 @@
 import { NavLink, useHistory } from 'react-router-dom'
 import OpenModalButton from '../OpenModalButton';
-// import DeleteSpotModal from '../DeleteSpotModal';
+import DeleteSpotModal from '../DeleteSpotModal';
 import './spots.css';
 
 function SpotIndexItem({ spot, page }) {
@@ -31,7 +31,7 @@ function SpotIndexItem({ spot, page }) {
                         </div>
                     </div>
                 </NavLink>
-                {/* {page === 'current' && (
+                {page === 'current' && (
                     <div>
                         <button className='modal-button' onClick={updateForm}>Update</button>
                         <OpenModalButton
@@ -39,7 +39,7 @@ function SpotIndexItem({ spot, page }) {
                             modalComponent={<DeleteSpotModal spotId={spot.id} />}
                         />
                     </div>
-                )} */}
+                )}
             </span>
         </div>
 

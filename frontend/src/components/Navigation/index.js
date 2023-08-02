@@ -3,9 +3,6 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from "./ProfileButton";
-// import classes from "./index.module.css";
-// import OpenModalButton from "../OpenModalButton";
-// import LoginFormModal from "../LoginFormModal";
 import logo from '../../images/CATBNBLOGO.png'
 import './Navigation.css'
 

@@ -51,7 +51,7 @@ export const fetchSpotsThunk = () => async (dispatch) => {
     if (response.ok) {
         const spots = await response.json();
 
-        dispatch(loadSpotsAction(spots.Spots));
+        dispatch(loadSpotsAction(spots.Spots));  // 这两个是spots分别是什么
     };
 };
 
