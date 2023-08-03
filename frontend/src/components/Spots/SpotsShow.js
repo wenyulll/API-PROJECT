@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotThunk } from '../../store/spots';
 import { useEffect } from 'react';
-// import ReviewsIndex from '../Reviews/ReviewsIndex';
 import './spotShow.css';
 
 function SpotShow() {

@@ -5,7 +5,6 @@ import './spots.css';
 
 function SpotIndexItem({ spot, page }) {
 
-    // const { id } = spot
     const history = useHistory();
 
     const updateForm = () => {

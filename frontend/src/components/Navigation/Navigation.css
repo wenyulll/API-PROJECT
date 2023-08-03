@@ -1,5 +1,9 @@
+.hidden {
+    display: none !important
+}
+
 a:link {
-    text-decoration: none
+    text-decoration: none !important
 }
 
 .manage-spots-link {
@@ -10,9 +14,6 @@ a:link {
     align-items: center;
 }
 
-.hidden {
-    display: none
-}
 
 .dropdown {
     list-style: none;
@@ -82,7 +83,7 @@ a:link {
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 30px 30px;
+    padding: 40px 40px;
     align-items: center;
     text-decoration: none;
     border-bottom: 1px rgb(229, 229, 229) solid;

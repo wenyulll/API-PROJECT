@@ -1,4 +1,4 @@
-.delete-modal {
+.delete-spot {
     width: 400;
     height: 250;
     display: flex;
@@ -7,8 +7,8 @@
     padding-bottom: 20px;
 }
 
-#delete-spot-yes {
-    background-color: ff385c;
+#yes {
+    background-color: #FF5A5F;
     color: white;
     width: 350;
     height: 50;
@@ -16,7 +16,7 @@
     box-shadow: 3px 3px black;
 }
 
-#delete-spot-no {
+#no {
     background-color: rgb(74, 72, 72);
     color: white;
     width: 350;
@@ -24,6 +24,10 @@
     box-shadow: 3px 3px black;
 }
 
-.delete-modal-blurb {
-    padding: 0px 10px;
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 20px
 }
