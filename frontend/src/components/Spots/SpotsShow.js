@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotThunk } from '../../store/spots';
 import { useEffect } from 'react';
 import './spotShow.css';
+import ReviewIndex from '../Reviews/ReviewsIndex';
 
 function SpotShow() {
     const dispatch = useDispatch();
@@ -16,8 +17,8 @@ function SpotShow() {
         dispatch(fetchSpotThunk(spotId))
     }, [dispatch, spotId]);
 
-    const handleClick = () => {
-        alert('Feature coming soon.')
+    const showAlert = () => {
+        alert('Feature Comming Soon')
     }
 
     if (!spot) return null;
@@ -49,8 +50,11 @@ function SpotShow() {
                         <span className='spotDetails-reservation-rating'><i className='fas fa-star' />{spot.numReviews > 0 ? spot.numReviews === 1 ? `${spot.avgStarRating.toFixed(1)} · ${spot.numReviews} review` : `${spot.avgStarRating.toFixed(2)} · ${spot.numReviews} reviews` : ' New'}</span>
                     </div>
                     <div className='spotDetails-reservation-buttonContainer'>
-                        <button className='spotDetails-reservation-button' onClick={handleClick}>Reserve</button>
+                        <button className='spotDetails-reservation-button' onClick={showAlert}>Reserve</button>
                     </div>
+                </div>
+                <div className='spotDetails-reviewsContainer'>
+                    <ReviewIndex spot={spot} spotId={spotId} />
                 </div>
             </div>
         </div>

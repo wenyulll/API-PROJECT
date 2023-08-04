@@ -47,11 +47,12 @@ const deleteSpotAction = (spotId) => ({
 //thunk 1.get all spots
 export const fetchSpotsThunk = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots');
-
+    // console.log('responsesssss', response)
+    // console.log('spotIdddddddddds', spotId)
     if (response.ok) {
         const spots = await response.json();
 
-        dispatch(loadSpotsAction(spots.Spots));  // 这两个是spots分别是什么
+        dispatch(loadSpotsAction(spots.Spots));
     };
 };
 

@@ -1,0 +1,11 @@
+.Delete-Review-Modal {
+    width: auto
+}
+
+#yes {
+    background-color: #FF5A5F;
+}
+
+#no {
+    background-color: white;
+}
