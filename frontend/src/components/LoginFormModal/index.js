@@ -4,6 +4,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { Link } from 'react-router-dom'
 
 function LoginFormModal() {
     const dispatch = useDispatch();
@@ -12,22 +13,32 @@ function LoginFormModal() {
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        return dispatch(sessionActions.login({ credential, password }))
-            .then(closeModal)
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors);
-                }
-            });
+        const login = await dispatch(sessionActions.login({ credential, password }))
+        if (login) {
+            if (login.errors) {
+                setErrors(login.errors);
+            } else {
+                closeModal();
+            }
+        }
+    };
+
+    const demoUser = async (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.login({ credential: 'Demo-lition', password: 'password' }))
+            .then(closeModal);
+
     };
 
     return (
-        <>
+        <div className='login-modal'>
             <h1>Log In</h1>
+            {errors.credential && (
+                <p className='errors'>{errors.credential}</p>
+            )}
             <form onSubmit={handleSubmit}>
                 <label>
                     Username or Email
@@ -47,12 +58,18 @@ function LoginFormModal() {
                         required
                     />
                 </label>
-                {errors.credential && (
-                    <p>{errors.credential}</p>
-                )}
-                <button type="submit">Log In</button>
+
+                <button disabled={credential.length < 4 || password.length < 6} className={(credential.length < 4 || password.length < 6) ? 'disabled login-button' : 'enabled login-button'} type="submit">Log In</button>
+
+                {/* <Link className='demo-user'>
+                    <a className='demo-user' onClick={demoUser}>Demo User</a>
+                </Link> */}
+
+                <Link to="#" className='demo-user' onClick={demoUser}>
+                    Demo User
+                </Link>
             </form>
-        </>
+        </div>
     );
 }
 

@@ -1,0 +1,118 @@
+.spotdetails {
+    padding: 20px;
+}
+
+.spotDetails-header {
+    margin: 5px;
+}
+
+.spotDetails-images {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    height: 400;
+    width: 100%;
+}
+
+.spotDetails-previewContainer {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    max-width: 500;
+    max-height: 450;
+    justify-content: center;
+    align-items: center;
+}
+
+.spotDetails-previewImage {
+    max-width: 504;
+    max-height: 404;
+    width: 484;
+    height: 384;
+    padding: 2px;
+}
+
+.spotDetails-otherImagesContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    max-width: 500;
+    max-height: 450;
+    padding-right: 3px;
+}
+
+.spotDetails-otherImages {
+    max-width: 240;
+    max-height: 190;
+    width: 250;
+    height: 200;
+    padding: 2px;
+}
+
+.spotDetails-detailsContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.spotDetails-details {
+    margin: 5px;
+    width: 600px;
+    height: 200px;
+    font-size: 14;
+    padding-right: 10px;
+}
+
+.spotDetails-detailsContainer {
+    display: flex;
+    border-bottom: 1px black solid;
+}
+
+.spotDetails-reservationContainer {
+    padding: 20px;
+    border: 2px black solid;
+    margin-top: 30;
+    width: 300;
+    height: 80;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.reservation-price-stars {
+    width: 300;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20;
+}
+
+.spotDetails-reservation-price {
+    font-weight: bold;
+    font-size: 18;
+    align-self: flex-end;
+
+}
+
+.spotDetails-reservation-rating {
+    font-size: 14;
+    display: flex;
+    align-self: flex-end;
+}
+
+.spotDetails-reservation-buttonContainer {
+    width: 100%;
+}
+
+.spotDetails-reservation-button {
+    width: 100%;
+    height: 40;
+    background-color: #ff385c;
+    color: white;
+    box-shadow: 3px 3px black;
+    cursor: pointer;
+}

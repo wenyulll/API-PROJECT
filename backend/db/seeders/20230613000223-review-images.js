@@ -12,15 +12,15 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         reviewId: 1,
-        url: '../../../images/06:review.webp'
+        url: 'https://a0.muscache.com/im/pictures/af2afea0-396d-43e4-8d21-4de3e67b326c.jpg?im_w=1200'
       },
       {
         reviewId: 2,
-        url: '../../../images/07:review.webp'
+        url: 'https://a0.muscache.com/im/pictures/3d0045c4-6667-4e81-b918-16a8b7f5f718.jpg?im_w=1200'
       },
       {
         reviewId: 3,
-        url: '../../../images/08:review.webp'
+        url: 'https://a0.muscache.com/im/pictures/ec8cc256-2930-44c8-8e06-a01059ced30d.jpg?im_w=1200'
       }
     ], {})
   },

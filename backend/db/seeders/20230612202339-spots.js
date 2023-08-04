@@ -13,14 +13,14 @@ module.exports = {
       {
         ownerId: 1,
         address: "865 Wines Lane",
-        city: "Houston",
-        state: "Texas",
+        city: "Salinas",
+        state: "California",
         country: "United States",
         lat: 30.051216,
         lng: -95.390831,
-        name: "Walk to the Beach from this Ocean Front Home",
-        description: "Your beachfront escape awaits you.",
-        price: 200
+        name: "Hacienda House on Vineyard - Pool, Hot Tub & Sauna",
+        description: "Retreat to this beautiful 20 acre Hacienda set on a boutique organic vineyard and olive orchard in the Pastures of Heaven. This luxurious 6 bedroom vacation rental and its impeccably maintained grounds are the perfect location for your next celebration or retreat. With large common spaces, state of the art kitchen, and expansive outdoor amenities, this home was designed for entertaining.",
+        price: 188
       },
       {
         ownerId: 1,
@@ -32,7 +32,7 @@ module.exports = {
         lng: -95.390822,
         name: "Bellacollina Farms Beautiful Briones Retreat",
         description: "Beautiful Briones ~ Bay Area Retreat.",
-        price: 200
+        price: 195
       },
       {
         ownerId: 2,
@@ -42,9 +42,9 @@ module.exports = {
         country: "United States",
         lat: 38.029121,
         lng: -87.584869,
-        name: "The Little House",
-        description: "The Little House is a quaint place to stay during your time in the South Jersey area .",
-        price: 199
+        name: "Crow's Nest",
+        description: "Located high in the redwoods of Monte Rio, the Crow's Nest provides a birds eye view of the old growth forest surrounding the property. Take in the stunning views from our patio, the hot tub, or through the many large windows in the cabin.",
+        price: 300
       },
       {
         ownerId: 3,
@@ -54,9 +54,9 @@ module.exports = {
         country: "United States",
         lat: 28.022614,
         lng: -82.455887,
-        name: "BestRest #4 NEAR NYC/NEWARK AIRPORT/OUTLET MALL",
-        description: "YBRAND NEW BUILDING! Close to NYC, Gardens OUTLET Mall, Kean University, Trinitas Hospital, Prudential Center.",
-        price: 198
+        name: "Safe, Steps To Beach, Spa, Near Harbor, Pets Okay!",
+        description: "This unique beach house is one block from Twin Lakes beach, the finest one in Santa Cruz! It is a 2-story, designer home with an open floorplan, gridwork of glass to allow in plenty of light and offers ocean peeks. ",
+        price: 200
       },
       {
         ownerId: 4,
@@ -66,9 +66,9 @@ module.exports = {
         country: "United States",
         lat: 39.897949,
         lng: -75.044334,
-        name: "Sean's Homestead,the Green Room",
-        description: "Beautiful bedroom in an old world in the heart of historic Jersey City",
-        price: 197
+        name: "Unbelievable Views of Lake in Marla Bay,",
+        description: "Enter the private community of Marla Bay, and drive through the quiet streets to the end of a road. There you will find a fenced entrance to a home with the most spectacular views in Lake. The design is a mix of classic Tahoe nostalgia and modern amenities. Enter the home through the gated fence and naturally landscaped front yard to the right of the house. Open the door to wood cathedral ceilings and large windows facing unbelievable views of Lake.",
+        price: 160
       },
     ], {});
   },
@@ -77,7 +77,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      city: { [Op.in]: ['Houston', 'Camden', 'Tampa', 'Evansville'] }
+      ownerId: { [Op.in]: [1, 2, 3, 4] }
     }, {});
   }
 };

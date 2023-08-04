@@ -1,0 +1,33 @@
+.delete-spot {
+    width: 400;
+    height: 250;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+#yes {
+    background-color: #FF5A5F;
+    color: white;
+    width: 350;
+    height: 50;
+    margin-bottom: 10px;
+    box-shadow: 3px 3px black;
+}
+
+#no {
+    background-color: rgb(74, 72, 72);
+    color: white;
+    width: 350;
+    height: 50;
+    box-shadow: 3px 3px black;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 20px
+}

@@ -1,3 +1,98 @@
 .hidden {
-    display: none;
+    display: none !important
+}
+
+a:link {
+    text-decoration: none !important
+}
+
+.manage-spots-link {
+    color: black;
+}
+
+.sessionLinks {
+    align-items: center;
+}
+
+
+.dropdown {
+    list-style: none;
+    padding: 3px;
+}
+
+.profile-icon {
+    padding: 5px;
+}
+
+.header-create-new-spot {
+    padding: 10px;
+    color: rgb(0, 84, 63);
+    font-weight: bold;
+}
+
+.sessionLinks {
+    display: flex;
+    font-size: 14px;
+}
+
+.profile-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    list-style: none;
+    background: white;
+    border: 1px black solid;
+    padding: 10px;
+    width: 140px;
+    right: 0;
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 14;
+}
+
+.profile-icon::before {
+    margin: 5px 0px;
+}
+
+.profile-button {
+    border-radius: 15px;
+    padding: 5px;
+    width: 70px;
+    cursor: pointer;
+
+}
+
+.logo {
+    width: 40px;
+}
+
+.header-title {
+    font-weight: bold;
+    font-size: 22;
+    color: #ff385c
+}
+
+.nagivation-logo-title {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navigation-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 40px;
+    align-items: center;
+    text-decoration: none;
+    border-bottom: 1px rgb(229, 229, 229) solid;
+}
+
+.logout-button {
+    border-radius: 20px;
+    background-color: rgb(67, 66, 66);
+    color: white;
+    padding: 5px 15px;
+    margin-left: 20px;
 }
