@@ -22,10 +22,8 @@ function SpotForm({ spot, formType, formTitle }) {
     const [img4Url, setImg4Url] = useState(spot?.img4Url);
     const [img5Url, setImg5Url] = useState(spot?.img5Url);
     const [errors, setErrors] = useState({});
-
-
     const otherImages = [{ url: img2Url }, { url: img3Url }, { url: img4Url }, { url: img5Url }]
-
+    console.log("kkkkkkkkkkkkk", errors)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -44,6 +42,7 @@ function SpotForm({ spot, formType, formTitle }) {
             previewImage,
             otherImages
         }
+        // console.log("dddddddd", address)
 
         if (address.length < 1) resErrors.address = 'Address is required';
         if (city.length < 1) resErrors.city = 'City is required';
@@ -53,9 +52,10 @@ function SpotForm({ spot, formType, formTitle }) {
         if (name.length < 1) resErrors.name = 'Name is required';
         if (!price || price <= 0) resErrors.price = 'Price is required';
         if (previewImage.length < 1) resErrors.previewImage = 'Preview image is required';
-
+        console.log("DDDDD", resErrors)
         if (Object.values(resErrors).length > 0) {
             setErrors(resErrors);
+            return
         } else {
             if (formType === 'Create') {
                 const newSpot = await dispatch(createSpotThunk(spot))
@@ -87,6 +87,7 @@ function SpotForm({ spot, formType, formTitle }) {
     return (
         <form className='spot-form' onSubmit={handleSubmit}>
             <h2>{formTitle}</h2>
+            {/* formTitle is defined in createdSpotFrom.js */}
             <div className='spot-form-div'>
                 <h3>Where's your place located?</h3>
                 <p className='location-blurb'>Guests will only get your exact address once they booked a reservation.</p>
@@ -107,6 +108,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     <span className='errors errors-above'>{errors.address}</span>
                     <input
                         type='text'
+                        required
                         className='form-inputs street-input'
                         placeholder='Address'
                         value={address}
