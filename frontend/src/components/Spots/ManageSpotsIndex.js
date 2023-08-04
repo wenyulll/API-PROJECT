@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import SpotIndexItem from './SpotIndexItem.js';
 import './spots.css';
 
+
 function ManageSpots() {
     const dispatch = useDispatch();
     const history = useHistory();

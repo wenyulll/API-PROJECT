@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import SpotIndexItem from './SpotIndexItem.js';
 import './spots.css';
 
+
 function SpotsIndex() {
     const dispatch = useDispatch();
     const spots = Object.values(
