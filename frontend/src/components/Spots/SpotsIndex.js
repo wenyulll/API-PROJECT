@@ -19,7 +19,7 @@ function SpotsIndex() {
 
     return (
         <div className='index'>
-            <div className='spots'>
+            <div className='spots-container'>
                 <ul className='spots-grid'>
                     {spots.map((spot) => (
                         <li key={spot.id}>

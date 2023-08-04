@@ -215,7 +215,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 </div>
                 <div className='errors errors-below'>{errors.price}</div>
             </div>
-
+            {/* -------------------------插入图片-------------------------------------- */}
             <div className='form-photos spot-form-div'>
                 <h3>Liven up your spot with photos</h3>
                 <p>

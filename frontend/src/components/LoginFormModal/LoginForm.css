@@ -1,29 +1,52 @@
-/* frontend/src/components/LoginFormPage/LoginForm.css */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-}
-
-/* Style the input fields and labels */
-label {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* Style the error message */
-p {
+.errors {
+    text-align: center;
     color: red;
-    font-size: 14px;
-    margin-top: -10px;
-    margin-bottom: 15px;
+}
+
+.demo-user {
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    padding-top: 20px;
+    color: rgb(0, 84, 63);
+    font-weight: bold;
 }
 
 h1 {
-    color: black
+    display: flex;
+    justify-content: center;
 }
 
-text {
-    color: black
+form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px;
+}
+
+.enabled {
+    color: white;
+    background-color: #ff385c;
+    box-shadow: 5px 5px black;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+input {
+    height: 30px;
+}
+
+.login-button {
+    padding-top: 20px;
+    margin-top: 15px;
+    display: inline-block;
+    vertical-align: center;
+    font-size: 16px;
+    padding: 15px;
+    box-shadow: 5px 5px 1px gray
 }

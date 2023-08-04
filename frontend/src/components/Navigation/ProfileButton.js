@@ -36,7 +36,7 @@ function ProfileButton({ user }) {
 
     const closeMenu = () => setShowMenu(false);
 
-    const logoutHandler = (e) => {
+    const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
         closeMenu();
@@ -48,8 +48,6 @@ function ProfileButton({ user }) {
     return (
         <>
             <button className='profile-button' onClick={openMenu}>
-                {/* <i class="fas fa-bars"></i>
-                <i className="fas fa-user-circle" /> */}
                 <i className="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-circle-user"></i>
 
@@ -65,7 +63,7 @@ function ProfileButton({ user }) {
                             </li>
                         </div>
                         <li className='dropdown'>
-                            <button className='logout-button' onClick={logoutHandler}>Log Out</button>
+                            <button className='logout-button' onClick={logout}>Log Out</button>
                         </li>
                     </>
                 ) : (

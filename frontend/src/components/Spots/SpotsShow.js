@@ -6,12 +6,16 @@ import './spotShow.css';
 import ReviewIndex from '../Reviews/ReviewsIndex';
 
 function SpotShow() {
+
     const dispatch = useDispatch();
     const { spotId } = useParams();
+    // state.spots.singleSpot 包含当前房屋的信息。如果 state.spots.singleSpot 存在，则将其值赋给 spot，否则将 spot 设置为空对象 {}。
     const spot = useSelector(state => state.spots.singleSpot ? state.spots.singleSpot : {});
-    const mainImage = useSelector(state => state.spots.singleSpot?.SpotImages?.length > 0 ? state.spots.singleSpot.SpotImages[0] : [])
-    const otherImages = useSelector(state => state.spots.singleSpot?.SpotImages?.length > 1 ? state.spots.singleSpot.SpotImages.slice(1, 5) : [])
-    const spotOwner = useSelector(state => state.spots.singleSpot?.Owner ? state.spots.singleSpot.Owner : {})
+    //  state.spots.singleSpot.SpotImages 存在且长度大于 0，则将其第一个元素赋给 mainImage，否则将 mainImage 设置为[]。
+    const mainImage = useSelector(state => state.spots.singleSpot?.SpotImages?.length > 0 ? state.spots.singleSpot.SpotImages[0] : []);
+    const otherImages = useSelector(state => state.spots.singleSpot?.SpotImages?.length > 1 ? state.spots.singleSpot.SpotImages.slice(1, 5) : []);
+    const spotOwner = useSelector(state => state.spots.singleSpot?.Owner ? state.spots.singleSpot.Owner : {});//看spotowner
+
 
     useEffect(() => {
         dispatch(fetchSpotThunk(spotId))
