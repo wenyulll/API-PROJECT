@@ -1,12 +1,24 @@
+/* =================SpotsIndex.js=================== */
+.spots-container {
+    margin: 100px;
+}
+
 .spots-grid {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     list-style-type: none;
     font-size: 13px;
     padding: 20px;
     text-decoration: none;
+
+    /* width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-auto-rows: minmax(300px, auto); */
+
 }
+
+/* =================SpotsIndexItem.js=================== */
 
 .spotIndexItem-header {
     display: flex;

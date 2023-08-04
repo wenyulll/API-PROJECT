@@ -3,6 +3,7 @@ import OpenModalButton from '../OpenModalButton';
 import DeleteSpotModal from '../DeleteSpotModal';
 import './spots.css';
 
+
 function SpotIndexItem({ spot, page }) {
 
     const history = useHistory();

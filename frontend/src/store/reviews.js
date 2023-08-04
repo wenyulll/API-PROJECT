@@ -27,8 +27,7 @@ export const deleteReviewAction = (reviewId) => ({
 
 export const fetchReviewsThunk = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`)
-    // console.log('responsesssssssssss', response)
-    // console.log('spotIddddddddddddd', spotId)
+
     if (response.ok) {
         const reviews = await response.json();
         dispatch(loadReviewsAction(reviews.Reviews));
@@ -87,7 +86,6 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
 const initialState = { spot: {}, user: {} };
 
 const reviewsReducer = (state = initialState, action) => {
-    // console.log('runningnnnnnnn')
     switch (action.type) {
         case LOAD_REVIEWS: {
             const newState = { spot: {} }

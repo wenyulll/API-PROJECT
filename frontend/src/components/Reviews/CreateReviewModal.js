@@ -56,8 +56,7 @@ function CreateReviewModal({ spotId, user, spotReview, className }) {
             <div className='errors'>{errors.stars}</div>
             {/* errors.stars是从errors对象中提取出与评分相关的错误信息并显示在页面上。 */}
             <button id={(stars < 1 || review.length < 10) ? 'disabled-submit-review-button' : 'enabled-submit-review-button'} disabled={stars < 1 || review.length < 10} onClick={handleSubmit}>Submit Your Review</button>
-            {/* id: 这是button元素的id属性。它使用条件（ternary）表达式来根据评分和评论内容的长度判断当前按钮的id。如果stars小于1或review的长度小于10，
-            按钮的id将设置为'disabled-submit-review-button'，否则设置为'enabled-submit-review-button'。这样可以根据按钮的状态来定义不同的CSS样式。 */}
+            {/* id: 这是button元素的id属性。它使用条件（ternary）表达式来根据评分和评论内容的长度判断当前按钮的id。如果stars小于1或review的长度小于10 */}
         </div>
     )
 }

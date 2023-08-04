@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import SpotIndexItem from './SpotIndexItem.js';
 import './spots.css';
 
+
 function SpotsIndex() {
     const dispatch = useDispatch();
     const spots = Object.values(
@@ -18,7 +19,7 @@ function SpotsIndex() {
 
     return (
         <div className='index'>
-            <div className='spots'>
+            <div className='spots-container'>
                 <ul className='spots-grid'>
                     {spots.map((spot) => (
                         <li key={spot.id}>
