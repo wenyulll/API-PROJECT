@@ -182,7 +182,7 @@ router.get('/', validateSpotQuery, async (req, res) => {
             'price',
             'createdAt',
             'updatedAt',
-            [Sequelize.fn("ROUND", Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 2), "avgRating"],
+            [Sequelize.fn("ROUND", Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 1), "avgRating"],
             [Sequelize.col("SpotImages.url"), "previewImage"],
 
         ],
@@ -223,7 +223,7 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         attributes: {
             include: [
-                [Sequelize.fn("ROUND", Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 2), "avgRating"],
+                [Sequelize.fn("ROUND", Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), 1), "avgRating"],
                 [Sequelize.col("SpotImages.url"), "previewImage"],
             ],
         },
