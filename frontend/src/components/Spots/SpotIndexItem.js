@@ -12,6 +12,9 @@ function SpotIndexItem({ spot, page }) {
         history.push(`/spots/${spot.id}/edit`)
     }
 
+
+    const avgRating = spot.avgRating ? spot.avgRating.toFixed(1) : 'New';
+
     return (
 
         <div className='spotIndexItem-Card'>
@@ -23,7 +26,7 @@ function SpotIndexItem({ spot, page }) {
                     <div className='spotIndexItem-DetailsContainer'>
                         <div className='spotIndexItem-header'>
                             <span className='spotIndexItem-location'>{spot.city}, {spot.state}</span>
-                            <span className='spotIndexItem-stars'><i className='fa-solid fa-star' />{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>
+                            <span className='spotIndexItem-stars'><i className='fa-solid fa-star' />{avgRating}</span>
                         </div>
                         <div>
                             <span className='spotIndexItem-price links'>${spot?.price ? parseInt(spot.price).toFixed(1) : ''}</span>
@@ -45,5 +48,6 @@ function SpotIndexItem({ spot, page }) {
 
     )
 }
+
 
 export default SpotIndexItem;
