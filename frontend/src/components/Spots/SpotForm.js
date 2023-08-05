@@ -23,7 +23,7 @@ function SpotForm({ spot, formType, formTitle }) {
     const [img5Url, setImg5Url] = useState(spot?.img5Url);
     const [errors, setErrors] = useState({});
     const otherImages = [{ url: img2Url }, { url: img3Url }, { url: img4Url }, { url: img5Url }]
-    console.log("kkkkkkkkkkkkk", errors)
+    // console.log("kkkkkkkkkkkkk", errors)
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -52,7 +52,7 @@ function SpotForm({ spot, formType, formTitle }) {
         if (name.length < 1) resErrors.name = 'Name is required';
         if (!price || price <= 0) resErrors.price = 'Price is required';
         if (previewImage.length < 1) resErrors.previewImage = 'Preview image is required';
-        console.log("DDDDD", resErrors)
+        // console.log("DDDDD", resErrors)
         if (Object.values(resErrors).length > 0) {
             setErrors(resErrors);
             return
@@ -97,6 +97,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     <input
                         className='form-inputs country-input'
                         type='text'
+                        required
                         placeholder='Country'
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
@@ -122,6 +123,8 @@ function SpotForm({ spot, formType, formTitle }) {
                         <span className='errors errors-above'>{errors.city}</span>
                         <input
                             type='text'
+                            required
+
                             className='form-inputs city-input'
                             placeholder='City'
                             value={city}
@@ -135,6 +138,8 @@ function SpotForm({ spot, formType, formTitle }) {
                         <input
                             className='form-inputs state-input'
                             type='text'
+                            required
+
                             placeholder='State'
                             value={state}
                             onChange={(e) => setState(e.target.value)}
@@ -149,6 +154,8 @@ function SpotForm({ spot, formType, formTitle }) {
                         <input
                             className='form-inputs lat-input'
                             type='number'
+                            required
+
                             placeholder='Latitude'
                             value={lat}
                             onChange={(e) => setLat(e.target.value)}
@@ -161,6 +168,8 @@ function SpotForm({ spot, formType, formTitle }) {
                         <input
                             className='form-inputs lng-input'
                             type='number'
+                            required
+
                             placeholder='Longitude'
                             value={lng}
                             onChange={(e) => setLng(e.target.value)}
