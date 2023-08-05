@@ -44,18 +44,3 @@ function App() {
 
 export default App;
 
-// get all spots /spots/:id  
-
-// create a spot /spots/new
-
-// post a review /spots/:id
-
-// manage spots /spots/current
-
-// update spot /spots/:id/edit
-
-// delete a spot is on /spots/current
-
-// delete a review /spots/:id
-
-// manage reviews /reviews/current
