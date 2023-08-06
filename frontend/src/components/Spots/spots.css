@@ -1,6 +1,10 @@
 /* =================SpotsIndex.js=================== */
 .spots-container {
-    margin: 100px;
+    /* display: flex; */
+    margin: 20px 100px;
+    /* width: 100%;
+    justify-content: center; */
+
 }
 
 .spots-grid {
@@ -16,6 +20,19 @@
     grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
     grid-auto-rows: minmax(300px, auto); */
 
+}
+
+.spots-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: normal;
+    font-size: 13px;
+    padding: 30px;
+    margin: 0 auto;
+    text-decoration: none;
+    align-items: flex-end;
+    box-sizing: border-box;
+    width: 100%
 }
 
 /* =================SpotsIndexItem.js=================== */
@@ -51,11 +68,20 @@
 }
 
 .spotIndexItem-Card {
-    max-width: 230;
+    max-width: 400;
+    flex: 1;
     height: 250;
-    margin: 20px 10px;
+    margin: 20px 20px;
     text-decoration: none;
+    box-sizing: border-box;
+    flex-basis: calc(25% - 40px);
+    flex-grow: 0;
+    flex-shrink: 0;
 }
+
+/* .spotIndexItem-Card:nth-child(4n + 1) {
+    margin-left: 0;
+} */
 
 .spotIndexItem-ImageContainer {
     max-width: 230;
