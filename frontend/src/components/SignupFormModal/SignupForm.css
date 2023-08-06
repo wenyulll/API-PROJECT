@@ -1,7 +1,8 @@
 .signup-errors {
-    text-align: center;
+    text-align: left;
     color: red;
     padding: 0;
+    margin: 0 20px;
 }
 
 #modal-content {

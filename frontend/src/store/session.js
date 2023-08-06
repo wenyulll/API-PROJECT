@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf";
 
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
+const LOGIN_FAILURE = "session/loginFailure";
+const SIGNUP_FAILURE = "session/signupFailure";
 
 const setUser = (user) => {
     return {
@@ -17,18 +19,43 @@ const removeUser = () => {
     };
 };
 
+const loginFailure = (err) => {
+    return {
+        type: LOGIN_FAILURE,
+        payload: err
+    };
+}
+
+const signupFailure = (err) => {
+    return {
+        type: SIGNUP_FAILURE,
+        payload: err
+    };
+}
+
 export const login = (user) => async (dispatch) => {
     const { credential, password } = user;
-    const response = await csrfFetch("/api/session", {
-        method: "POST",
-        body: JSON.stringify({
-            credential,
-            password,
-        }),
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    try {
+        const response = await csrfFetch("/api/session", {
+            method: "POST",
+            body: JSON.stringify({
+                credential,
+                password,
+            }),
+        });
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return response;
+    }
+    catch (error) {
+        if (error.status === 401) {
+            dispatch(loginFailure('Invalid credentials'));
+        }
+        else {
+            dispatch(loginFailure('An error occurred'));
+        }
+        return error;
+    }
 };
 
 const initialState = { user: null };
@@ -44,6 +71,16 @@ const sessionReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.user = null;
             return newState;
+        case LOGIN_FAILURE:
+            newState = Object.assign({}, state);
+            newState.user = null;
+            newState.err = action.payload;
+            return newState;
+        case SIGNUP_FAILURE:
+            newState = Object.assign({}, state);
+            newState.user = null;
+            newState.err = action.payload;
+            return newState;
         default:
             return state;
     }
@@ -58,19 +95,25 @@ export const restoreUser = () => async (dispatch) => {
 
 export const signup = (user) => async (dispatch) => {
     const { username, firstName, lastName, email, password } = user;
-    const response = await csrfFetch("/api/users", {
-        method: "POST",
-        body: JSON.stringify({
-            username,
-            firstName,
-            lastName,
-            email,
-            password,
-        }),
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    try {
+        const response = await csrfFetch("/api/users", {
+            method: "POST",
+            body: JSON.stringify({
+                username,
+                firstName,
+                lastName,
+                email,
+                password,
+            }),
+        });
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return response;
+    }
+    catch (error) {
+        dispatch(signupFailure('An error occurred'));
+        return error;
+    }
 };
 
 export const logout = () => async (dispatch) => {

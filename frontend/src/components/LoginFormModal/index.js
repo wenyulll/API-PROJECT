@@ -16,8 +16,13 @@ function LoginFormModal() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        const login = await dispatch(sessionActions.login({ credential, password }))
+        const login = await dispatch(sessionActions.login({ credential, password }));
+        // console.log(login);
         if (login) {
+            if (login.status === 401) {
+                setErrors({ credential: 'The provided credentials were invalid.' });
+                return;
+            }
             if (login.errors) {
                 setErrors(login.errors);
             } else {
@@ -58,7 +63,6 @@ function LoginFormModal() {
                         required
                     />
                 </label>
-
                 <button disabled={credential.length < 4 || password.length < 6} className={(credential.length < 4 || password.length < 6) ? 'disabled login-button' : 'enabled login-button'} type="submit">Log In</button>
 
                 {/* <Link className='demo-user'>

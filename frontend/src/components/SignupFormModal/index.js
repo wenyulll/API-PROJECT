@@ -14,11 +14,11 @@ function SignupFormModal() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors({});
-            return dispatch(
+            const res = await dispatch(
                 sessionActions.signup({
                     email,
                     username,
@@ -27,13 +27,17 @@ function SignupFormModal() {
                     password,
                 })
             )
-                .then(closeModal)
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) {
-                        setErrors(data.errors);
-                    }
-                });
+            console.log(res);
+            if (res.status === 500) {
+                setErrors({ unqiueUsername: "Username must be unique." });
+                return;
+            }
+            const data = await res.json();
+            if (data && data.errors) {
+                setErrors(data.errors);
+                return;
+            }
+            closeModal()
         }
         return setErrors({
             confirmPassword: "Confirm Password field must be the same as the Password field"
@@ -46,6 +50,7 @@ function SignupFormModal() {
     return (
         <div className='signup-modal'>
             <h1>Sign Up</h1>
+            {errors.unqiueUsername && <p className='signup-errors'>{errors.unqiueUsername}</p>}
             <form onSubmit={handleSubmit}>
 
                 <label>
