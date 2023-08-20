@@ -1,9 +1,11 @@
-.spotdetails {
+.spotDetails {
     padding: 20px;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 .spotDetails-header {
-    margin: 5px;
+    margin: 5px 10px;
 }
 
 .spotDetails-images {
@@ -12,7 +14,7 @@
     grid-template-columns: 1fr 1fr;
     justify-items: center;
     align-items: center;
-    height: 400;
+    height: auto;
     width: 100%;
 }
 
@@ -27,11 +29,16 @@
 }
 
 .spotDetails-previewImage {
-    max-width: 504;
-    max-height: 404;
-    width: 484;
-    height: 384;
+    max-width: 504px;
+    max-height: 404px;
+    width: 484px;
+    height: 384px;
     padding: 2px;
+    /* max-width: 504;
+    max-height: 404;
+    width: 100%;
+    height: 300px;
+    padding: 2px; */
 }
 
 .spotDetails-otherImagesContainer {
@@ -40,16 +47,16 @@
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
-    max-width: 500;
-    max-height: 450;
+    max-width: 500px;
+    max-height: 450px;
     padding-right: 3px;
 }
 
 .spotDetails-otherImages {
-    max-width: 240;
-    max-height: 190;
-    width: 250;
-    height: 200;
+    max-width: 240px;
+    max-height: 190px;
+    width: 250px;
+    height: 200px;
     padding: 2px;
 }
 
@@ -75,9 +82,9 @@
 .spotDetails-reservationContainer {
     padding: 20px;
     border: 2px black solid;
-    margin-top: 30;
-    width: 300;
-    height: 80;
+    margin-top: 30px;
+    width: 300px;
+    height: 80px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -85,21 +92,21 @@
 }
 
 .reservation-price-stars {
-    width: 300;
+    width: 300px;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20;
+    margin-bottom: 20px;
 }
 
 .spotDetails-reservation-price {
     font-weight: bold;
-    font-size: 18;
+    font-size: 18px;
     align-self: flex-end;
 
 }
 
 .spotDetails-reservation-rating {
-    font-size: 14;
+    font-size: 14px;
     display: flex;
     align-self: flex-end;
 }
@@ -110,7 +117,7 @@
 
 .spotDetails-reservation-button {
     width: 100%;
-    height: 40;
+    height: 40px;
     background-color: #ff385c;
     color: white;
     box-shadow: 3px 3px black;

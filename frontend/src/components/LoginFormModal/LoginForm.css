@@ -1,6 +1,7 @@
 .errors {
-    text-align: center;
+    text-align: left;
     color: red;
+    margin: 0 20px;
 }
 
 .demo-user {

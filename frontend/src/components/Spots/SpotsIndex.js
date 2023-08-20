@@ -20,13 +20,11 @@ function SpotsIndex() {
     return (
         <div className='index'>
             <div className='spots-container'>
-                <ul className='spots-grid'>
+                <div className='spots-flex'>
                     {spots.map((spot) => (
-                        <li key={spot.id}>
-                            <SpotIndexItem spot={spot} page='all' />
-                        </li>
+                        <SpotIndexItem key={spot.id} spot={spot} page='all' />
                     ))}
-                </ul>
+                </div>
             </div>
         </div>
     )

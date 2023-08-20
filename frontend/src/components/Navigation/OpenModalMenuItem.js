@@ -1,6 +1,7 @@
 // frontend/src/components/Navigation/OpenModalMenuItem.js
 import React from 'react';
 import { useModal } from '../../context/Modal';
+import './Navigation.css';
 
 function OpenModalMenuItem({
     modalComponent, // component to render inside the modal
@@ -17,7 +18,7 @@ function OpenModalMenuItem({
     };
 
     return (
-        <li onClick={onClick}>{itemText}</li>  //点击的时候将itemtext放在列表里面显示
+        <li class="dropdown" onClick={onClick}>{itemText}</li>  //点击的时候将itemtext放在列表里面显示
     );
 }
 

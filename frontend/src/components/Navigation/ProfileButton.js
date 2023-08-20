@@ -2,7 +2,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from '../OpenModalButton';
+// import OpenModalMenuItem from '../OpenModalButton';
+import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { Link, useHistory } from 'react-router-dom';
@@ -49,6 +50,7 @@ function ProfileButton({ user }) {
         <>
             <button className='profile-button' onClick={openMenu}>
                 <i className="fa-solid fa-bars"></i>
+                <span> </span>
                 <i className="fa-solid fa-circle-user"></i>
 
             </button>
@@ -69,12 +71,12 @@ function ProfileButton({ user }) {
                 ) : (
                     <>
                         <OpenModalMenuItem
-                            itemText="Log In"
+                            itemText={"Log In"}
                             onItemClick={closeMenu}
                             modalComponent={<LoginFormModal />}
                         />
                         <OpenModalMenuItem
-                            itemText="Sign Up"
+                            itemText={"Sign Up"}
                             onItemClick={closeMenu}
                             modalComponent={<SignupFormModal setShowMenu={setShowMenu} />}
                         />
