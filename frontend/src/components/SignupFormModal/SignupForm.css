@@ -1,7 +1,8 @@
 .signup-errors {
-    text-align: center;
+    text-align: left;
     color: red;
     padding: 0;
+    margin: 0 20px;
 }
 
 #modal-content {
@@ -16,7 +17,7 @@ h1 {
     justify-content: center;
 }
 
-form {
+.signup-form {
     display: flex;
     flex-direction: column;
     width: 400px;

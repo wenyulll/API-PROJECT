@@ -2,8 +2,9 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 500;
-    font-size: 14;
+    padding: 20px;
+    width: 500px;
+    font-size: 14px;
 }
 
 .spot-form-div {

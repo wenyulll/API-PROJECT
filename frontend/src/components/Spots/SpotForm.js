@@ -93,7 +93,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 <p className='location-blurb'>Guests will only get your exact address once they booked a reservation.</p>
                 <div className='spot-form-Country'>
                     <label>Country</label>
-                    <span className='errors errors-above'>{errors.country}</span>
+                    {errors.country && <span className='errors errors-above'>{errors.country}</span>}
                     <input
                         className='form-inputs country-input'
                         type='text'
@@ -106,7 +106,7 @@ function SpotForm({ spot, formType, formTitle }) {
 
                 <div className='spot-form-Address'>
                     <label>Street Address</label>
-                    <span className='errors errors-above'>{errors.address}</span>
+                    {errors.address && <span className='errors errors-above'>{errors.address}</span>}
                     <input
                         type='text'
                         required
@@ -120,7 +120,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 <div className='spot-form-City-State'>
                     <div className='spot-form-City'>
                         <label>City</label>
-                        <span className='errors errors-above'>{errors.city}</span>
+                        {errors.city && <span className='errors errors-above'>{errors.city}</span>}
                         <input
                             type='text'
                             required
@@ -134,7 +134,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     <div className='form-comma'>,</div>
                     <div className='spot-form-State'>
                         <label>State</label>
-                        <span className='errors errors-above'>{errors.state}</span>
+                        {errors.state && <span className='errors errors-above'>{errors.state}</span>}
                         <input
                             className='form-inputs state-input'
                             type='text'
@@ -150,7 +150,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 <div className='spot-form-lat-lng'>
                     <div className='spot-form-lat'>
                         <label>Latitude</label>
-                        <span className='errors errors-above'>{errors.lat}</span>
+                        {errors.lat && <span className='errors errors-above'>{errors.lat}</span>}
                         <input
                             className='form-inputs lat-input'
                             type='number'
@@ -164,7 +164,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     <div className='form-comma'>,</div>
                     <div className='spot-form-lng'>
                         <label>Longitude</label>
-                        <span className='errors errors-above'>{errors.lng}</span>
+                        {errors.lng && <span className='errors errors-above'>{errors.lng}</span>}
                         <input
                             className='form-inputs lng-input'
                             type='number'
@@ -190,7 +190,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
-                <div className='errors errors-below'>{errors.description}</div>
+                {errors.description && <div className='errors errors-below'>{errors.description}</div>}
             </div>
 
             <div className='spot-form-div'>
@@ -206,7 +206,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <div className='errors errors-below'>{errors.name}</div>
+                {errors.name && <div className='errors errors-below'>{errors.name}</div>}
             </div>
 
             <div className='spot-form-div'>
@@ -224,7 +224,7 @@ function SpotForm({ spot, formType, formTitle }) {
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
-                <div className='errors errors-below'>{errors.price}</div>
+                {errors.price && <div className='errors errors-below'>{errors.price}</div>}
             </div>
             {/* -------------------------插入图片-------------------------------------- */}
             <div className='form-photos spot-form-div'>
@@ -239,7 +239,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     value={previewImage}
                     onChange={(e) => setPreviewImage(e.target.value)}
                 />
-                <div className='errors errors-photos'>{errors.previewImage}</div>
+                {errors.previewImage && <div className='errors errors-photos'>{errors.previewImage}</div>}
                 <input
                     type='url'
                     className='form-inputs form-images'
@@ -247,7 +247,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     value={img2Url}
                     onChange={(e) => setImg2Url(e.target.value)}
                 />
-                <div className='errors errors-photos'>{errors.img2Url}</div>
+                {errors.img2Url && <div className='errors errors-photos'>{errors.img2Url}</div>}
                 <input
                     type='url'
                     className='form-inputs form-images'
@@ -255,7 +255,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     value={img3Url}
                     onChange={(e) => setImg3Url(e.target.value)}
                 />
-                <div className='errors errors-photos'>{errors.img3Url}</div>
+                {errors.img3Url && <div className='errors errors-photos'>{errors.img3Url}</div>}
                 <input
                     type='url'
                     className='form-inputs form-images'
@@ -263,7 +263,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     value={img4Url}
                     onChange={(e) => setImg4Url(e.target.value)}
                 />
-                <div className='errors errors-photos'>{errors.img4Url}</div>
+                {errors.img4Url && <div className='errors errors-photos'>{errors.img4Url}</div>}
                 <input
                     type='url'
                     className='form-inputs form-images'
@@ -271,7 +271,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     value={img5Url}
                     onChange={(e) => setImg5Url(e.target.value)}
                 />
-                <div className='errors errors-photos'>{errors.img5Url}</div>
+                {errors.img5Url && <div className='errors errors-photos'>{errors.img5Url}</div>}
 
             </div>
 

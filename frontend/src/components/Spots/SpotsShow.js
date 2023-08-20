@@ -21,8 +21,9 @@ function SpotShow() {
         dispatch(fetchSpotThunk(spotId))
     }, [dispatch, spotId]);
 
-    const showAlert = () => {
-        alert('Feature Comming Soon')
+    const showAlert = (e) => {
+        e.preventDefault();
+        alert('Feature Comming Soon');
     }
 
     if (!spot) return null;
@@ -57,9 +58,9 @@ function SpotShow() {
                         <button className='spotDetails-reservation-button' onClick={showAlert}>Reserve</button>
                     </div>
                 </div>
-                <div className='spotDetails-reviewsContainer'>
-                    <ReviewIndex spot={spot} spotId={spotId} />
-                </div>
+            </div>
+            <div className='spotDetails-reviewsContainer'>
+                <ReviewIndex spot={spot} spotId={spotId} />
             </div>
         </div>
 
