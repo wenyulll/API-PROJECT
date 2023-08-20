@@ -51,7 +51,7 @@ function SignupFormModal() {
         <div className='signup-modal'>
             <h1>Sign Up</h1>
             {errors.unqiueUsername && <p className='signup-errors'>{errors.unqiueUsername}</p>}
-            <form onSubmit={handleSubmit}>
+            <form className='signup-form' onSubmit={handleSubmit}>
 
                 <label>
                     First Name
