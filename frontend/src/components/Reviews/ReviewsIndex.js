@@ -48,7 +48,7 @@ const ReviewIndex = ({ spot, spotId }) => {
     return (
         <div className='reviews-Index'>
             <div className='reviews-header'>
-                <h3><i className='fa-solid fa-star' /> {spot.numReviews > 0 ? spot.numReviews === 1 ? `${spot.avgStarRating.toFixed(2)} · ${spot.numReviews} review` : `${spot.avgStarRating.toFixed(2)} · ${spot.numReviews} reviews` : ' New'}</h3>
+                <h3><i className='fa-solid fa-star' /> {spot.numReviews > 0 ? spot.numReviews === 1 ? `${Number(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review` : `${Number(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : ' New'}</h3>
             </div>
             {sessionUser && SubmitReviewButton}
             {sessionUser && SubmitReviewButton && reviews.length === 0 && (
