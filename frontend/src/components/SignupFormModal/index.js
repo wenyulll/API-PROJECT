@@ -32,16 +32,20 @@ function SignupFormModal() {
                 setErrors({ unqiueUsername: "Username must be unique." });
                 return;
             }
-            const data = await res.json();
+            // const data = await res.json();
+            const data = res;
+            // console.log(data);
             if (data && data.errors) {
                 setErrors(data.errors);
                 return;
             }
             closeModal()
         }
-        return setErrors({
-            confirmPassword: "Confirm Password field must be the same as the Password field"
-        });
+        else {
+            return setErrors({
+                confirmPassword: "Confirm Password field must be the same as the Password field"
+            });
+        }
     };
 
     const disableButton = (
@@ -74,6 +78,7 @@ function SignupFormModal() {
                     />
                 </label>
                 {errors.lastName && <p className='signup-errors'>{errors.lastName}</p>}
+
 
                 <label>
                     Email

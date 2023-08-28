@@ -12,7 +12,9 @@ function SpotIndexItem({ spot, page }) {
         history.push(`/spots/${spot.id}/edit`)
     }
 
-
+    console.log(spot)
+    console.log(spot.avgRating)
+    console.log(spot.avgRating.toFixed(1))
     const avgRating = spot.avgRating ? spot.avgRating.toFixed(1) : 'New';
 
     return (

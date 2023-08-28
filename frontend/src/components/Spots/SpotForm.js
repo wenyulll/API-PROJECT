@@ -155,7 +155,6 @@ function SpotForm({ spot, formType, formTitle }) {
                             className='form-inputs lat-input'
                             type='number'
                             required
-
                             placeholder='Latitude'
                             value={lat}
                             onChange={(e) => setLat(e.target.value)}
@@ -187,6 +186,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 <textarea
                     className='form-textarea'
                     placeholder='Please write at least 30 characters'
+                    // required
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
@@ -202,6 +202,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 <input
                     className='form-inputs name-input'
                     type='text'
+                    required
                     placeholder='Name of your spot'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -219,6 +220,7 @@ function SpotForm({ spot, formType, formTitle }) {
                     <input
                         className='form-inputs price-input'
                         type='number'
+                        required
                         placeholder='Price per night (USD)'
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
@@ -234,6 +236,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 </p>
                 <input
                     type='url'
+                    required
                     className='form-inputs form-images'
                     placeholder='Preview Image URL'
                     value={previewImage}
