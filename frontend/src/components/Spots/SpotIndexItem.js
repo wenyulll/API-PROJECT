@@ -17,7 +17,7 @@ function SpotIndexItem({ spot, page }) {
     console.log("spot.avgRating")
     console.log(spot.avgRating)
     console.log("spot.avgRating.toFixed(1)")
-    console.log(spot.avgRating.toFixed(1))
+    console.log(typeof spot.avgRating)
     console.log("Number(spot.avgRating).toFixed(1)")
     console.log(Number(spot.avgRating).toFixed(1))
     const avgRating = spot.avgRating ? spot.avgRating.toFixed(1) : 'New';
