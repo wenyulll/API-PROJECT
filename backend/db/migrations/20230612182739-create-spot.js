@@ -43,7 +43,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.STRING(1024)
+        type: Sequelize.TEXT
       },
       price: {
         type: Sequelize.DECIMAL
