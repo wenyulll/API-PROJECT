@@ -75,6 +75,7 @@ function SignupFormModal() {
                 </label>
                 {errors.lastName && <p className='signup-errors'>{errors.lastName}</p>}
 
+
                 <label>
                     Email
                     <input
