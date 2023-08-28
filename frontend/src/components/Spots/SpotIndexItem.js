@@ -12,15 +12,14 @@ function SpotIndexItem({ spot, page }) {
         history.push(`/spots/${spot.id}/edit`)
     }
 
-    console.log("spot")
-    console.log(spot)
-    console.log("spot.avgRating")
-    console.log(spot.avgRating)
-    console.log("spot.avgRating.toFixed(1)")
-    console.log(typeof spot.avgRating)
-    console.log("Number(spot.avgRating).toFixed(1)")
-    console.log(Number(spot.avgRating).toFixed(1))
-    const avgRating = spot.avgRating ? spot.avgRating.toFixed(1) : 'New';
+    // console.log("spot")
+    // console.log(spot)
+    // console.log("spot.avgRating")
+    // console.log(spot.avgRating)
+    // console.log("spot.avgRating.toFixed(1)")
+    // console.log(typeof spot.avgRating)
+    // console.log("Number(spot.avgRating).toFixed(1)")
+    // console.log(Number(spot.avgRating).toFixed(1))
 
     return (
 
@@ -33,7 +32,7 @@ function SpotIndexItem({ spot, page }) {
                     <div className='spotIndexItem-DetailsContainer'>
                         <div className='spotIndexItem-header'>
                             <span className='spotIndexItem-location'>{spot.city}, {spot.state}</span>
-                            <span className='spotIndexItem-stars'><i className='fa-solid fa-star' />{avgRating}</span>
+                            <span className='spotIndexItem-stars'><i className='fa-solid fa-star' />{spot.avgRating ? Number(spot.avgRating).toFixed(1) : 'New'}</span>
                         </div>
                         <div>
                             <span className='spotIndexItem-price links'>${spot?.price ? parseInt(spot.price).toFixed(1) : ''}</span>
