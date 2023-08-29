@@ -43,10 +43,14 @@ function SpotIndexItem({ spot, page }) {
                 {page === 'current' && (
                     <div>
                         <button className='modal-button' onClick={updateForm}>Update</button>
-                        <OpenModalButton
-                            buttonText='Delete'
-                            modalComponent={<DeleteSpotModal spotId={spot.id} />}
-                        />
+
+                        <span className='open-modal-button'>
+                            <OpenModalButton
+                                buttonText='Delete'
+                                modalComponent={<DeleteSpotModal spotId={spot.id} />}
+                            />
+                        </span>
+
                     </div>
                 )}
             </span>

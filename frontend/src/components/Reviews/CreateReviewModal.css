@@ -1,39 +1,38 @@
 .review-modal {
     border-radius: 20px;
-    width: 400;
-    height: 350;
+    width: 400px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .errors {
-    color: red;
+    color: #FF5A5F;
 }
 
 .review-text-input {
     align-self: center;
-    width: 350;
-    height: 150;
-    background-color: rgb(229, 237, 240)
+    width: 350px;
+    height: 150px;
+    background-color: rgb(229, 237, 240);
 }
 
 .review-stars {
-    padding: 15;
-    font-size: 20;
+    padding: 15px;
+    font-size: 20px;
 }
 
-
 #disabled-submit-review-button {
-    width: 350;
-    height: 50;
+    width: 350px;
+    height: 50px;
     box-shadow: 3px 3px gray;
 }
 
 #enabled-submit-review-button {
-    width: 350;
-    height: 50;
+    width: 350px;
+    height: 50px;
     color: white;
-    background-color: #ff385c;
+    background-color: #FF5A5F;
     box-shadow: 3px 3px black;
 }
