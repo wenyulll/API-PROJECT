@@ -130,6 +130,15 @@
     transition-duration: 100ms;
 }
 
+.open-modal-button {
+    padding: 5px 10px;
+    margin: 10px 5px;
+    color: white;
+    background-color: lightgray;
+    box-shadow: 2px 2px grey;
+    border: none
+}
+
 .modal-button {
     padding: 5px 10px;
     margin: 10px 5px;
@@ -138,6 +147,8 @@
     box-shadow: 2px 2px black;
     border: 1px black;
 }
+
+
 
 .manage-spots-index {
     padding: 0px 30px;
