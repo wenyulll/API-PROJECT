@@ -49,7 +49,7 @@ function SignupFormModal() {
     };
 
     const disableButton = (
-        email.length < 1 || username.length < 4 || firstName.length < 1 || lastName.length < 1 || password.length < 6 || confirmPassword.length < 1
+        email.length < 1 || username.length < 6 || firstName.length < 4 || lastName.length < 4 || password.length < 6 || confirmPassword.length < 1
     )
     return (
         <div className='signup-modal'>
@@ -83,7 +83,7 @@ function SignupFormModal() {
                 <label>
                     Email
                     <input
-                        type="text"
+                        type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
