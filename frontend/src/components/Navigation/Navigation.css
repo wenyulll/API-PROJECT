@@ -6,6 +6,11 @@ a:link {
     color: black;
 }
 
+.manage-bookings-link {
+    color: black;
+    /* border-top: 2px grey; */
+}
+
 .sessionLinks {
     align-items: center;
 }
