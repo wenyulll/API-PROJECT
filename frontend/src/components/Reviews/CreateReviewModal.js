@@ -21,7 +21,7 @@ function CreateReviewModal({ spotId, user, spotReview, className }) {
     }; //处理星星评级，接收一个参数
 
     const handleSubmit = async (e) => {
-        e.preventDefault();  //默认阻止表单自动刷新
+        e.preventDefault();
         setErrors({});
 
         const newReview = await dispatch(createReviewThunk({ ...spotReview, stars, review, user }))
@@ -52,11 +52,8 @@ function CreateReviewModal({ spotId, user, spotReview, className }) {
             <div className='review-stars'>
                 <ReviewRating stars={stars} disabled={false} onChange={onChange} />
             </div>
-            {/* disabled属性被设置为false,表示ReviewRating组件中的评分星级是可点击和可编辑的状态。 */}
             <div className='errors'>{errors.stars}</div>
-            {/* errors.stars是从errors对象中提取出与评分相关的错误信息并显示在页面上。 */}
             <button id={(stars < 1 || review.length < 10) ? 'disabled-submit-review-button' : 'enabled-submit-review-button'} disabled={stars < 1 || review.length < 10} onClick={handleSubmit}>Submit Your Review</button>
-            {/* id: 这是button元素的id属性。它使用条件（ternary）表达式来根据评分和评论内容的长度判断当前按钮的id。如果stars小于1或review的长度小于10 */}
         </div>
     )
 }

@@ -16,12 +16,10 @@ function ReviewIndexItem({ review, spotId }) {
 
     // 创建一个变量来存储删除评论按钮元素
     let deleteReviewButton;
-    // 如果用户已登录
+
     if (sessionUser) {
-        // 如果当前用户是该评论的作者
 
         if (sessionUser.id === review.userId) {
-            // 创建一个OpenModalButton元素，用于打开删除评论的弹出框
 
             deleteReviewButton = (
                 <OpenModalButton

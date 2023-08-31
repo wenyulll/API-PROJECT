@@ -10,51 +10,57 @@
 .spot-form-div {
     border-bottom: 1px black solid;
     padding-bottom: 20px;
+    width: 100%
 }
-
 
 .location-blurb {
-    font-size: 14;
+    font-size: 14px;
 }
 
-.country-input {
-    width: 500;
+.form-inputs {
+    width: 100%;
+}
+
+/* .country-input {
+    width: 100%;
 }
 
 .street-input {
-    width: 500;
-}
+    width: 100%;
+} */
 
 .spot-form-City-State {
     display: flex;
     justify-content: space-between;
 }
 
-.spot-form-city {
+.spot-form-City {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    width: 65%;
 }
 
 .form-comma {
     align-self: flex-end;
 }
 
-.city-input {
-    width: 290;
-}
+/* .city-input {
+    width: 290px;
+} */
 
-.spot-form-state {
+.spot-form-State {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     justify-self: flex-end;
+    width: 30%;
 }
 
 .state-input {
-    width: 200;
+    /* width: 200; */
     justify-self: flex-end;
 }
 
@@ -63,6 +69,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+    width: 47.5%;
 }
 
 .spot-form-lng {
@@ -71,6 +78,7 @@
     align-items: flex-start;
     justify-self: flex-end;
     justify-content: space-between;
+    width: 47.5%;
 }
 
 .spot-form-lat-lng {
@@ -79,25 +87,32 @@
 }
 
 
-.lat-input {
+/* .lat-input {
     width: 245;
 }
 
 .lng-input {
     width: 245;
-}
+} */
 
 .form-textarea {
-    width: 500;
-    height: 150
+    width: 100%;
+    height: 150px;
 }
 
 .name-input {
-    width: 500px;
+    width: 100%;
+}
+
+.price-input-div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .price-input {
-    width: 500;
+    width: 100%;
     margin-left: 10px;
 }
 

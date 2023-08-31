@@ -8,17 +8,14 @@ import { fetchReviewsThunk } from '../../store/reviews'
 
 
 const ReviewIndex = ({ spot, spotId }) => {
-    // 从Redux的state中获取当前房屋的所有评论，并按创建时间排序
     const dispatch = useDispatch();
-    // 从Redux的state中获取当前房屋的所有评论，并按创建时间排序
+
     const reviews = Object.values(
         useSelector((state) => (state.reviews?.spot ? state.reviews.spot : []))
     ).sort((a, b) => new Date(a.createdAt).getDate() - new Date(b.createdAt).getTime());
 
-    // 获取当前登录的用户信息
     const sessionUser = useSelector((state) => state.session.user);
 
-    // 创建一个初始的房屋评论对象
     const spotReview = {
         spotId,
         review: '',
@@ -26,11 +23,8 @@ const ReviewIndex = ({ spot, spotId }) => {
     }
 
     let SubmitReviewButton;
-    // 如果用户已登录
     if (sessionUser) {
-        // 如果当前用户不是房屋的拥有者，并且该用户尚未对该房屋发表评论
         if (sessionUser.id !== spot.ownerId && !(reviews.find(review => review.userId === sessionUser.id))) {
-            // 创建一个OpenModalButton元素，用于打开评论提交的弹出框
             SubmitReviewButton = (
                 <OpenModalButton
                     buttonText='Submit Your Review'
