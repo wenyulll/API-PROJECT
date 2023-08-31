@@ -87,7 +87,6 @@ function SpotForm({ spot, formType, formTitle }) {
     return (
         <form className='spot-form' onSubmit={handleSubmit}>
             <h2>{formTitle}</h2>
-            {/* formTitle is defined in createdSpotFrom.js */}
             <div className='spot-form-div'>
                 <h3>Where's your place located?</h3>
                 <p className='location-blurb'>Guests will only get your exact address once they booked a reservation.</p>
@@ -186,7 +185,7 @@ function SpotForm({ spot, formType, formTitle }) {
                 <textarea
                     className='form-textarea'
                     placeholder='Please write at least 30 characters'
-                    // required
+                    required
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
@@ -216,7 +215,8 @@ function SpotForm({ spot, formType, formTitle }) {
                     Competitive pricing can help your listing stand out and rank higher
                     in search results.
                 </p>
-                <div className='price-input-div'>$
+                <div className='price-input-div'>
+                    $
                     <input
                         className='form-inputs price-input'
                         type='number'

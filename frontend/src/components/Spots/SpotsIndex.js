@@ -22,7 +22,7 @@ function SpotsIndex() {
             <div className='spots-container'>
                 <div className='spots-flex'>
                     {spots.map((spot) => (
-                        <SpotIndexItem spot={spot} page='all' />
+                        <SpotIndexItem key={spot.id} spot={spot} page='all' />
                     ))}
                 </div>
             </div>

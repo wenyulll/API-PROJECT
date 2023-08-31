@@ -59,6 +59,11 @@ function ProfileButton({ user }) {
                     <>
                         <li className='dropdown' >Hello, {user.firstName}</li>
                         <li className='dropdown'>{user.email}</li>
+                        <div className='manage-bookings-div'>
+                            <li className='dropdown'>
+                                <Link className='manage-bookings-link' to='/bookings/current' onClick={closeMenu}>Manage Bookings</Link>
+                            </li>
+                        </div>
                         <div className='manage-spots-div'>
                             <li className='dropdown'>
                                 <Link className='manage-spots-link' to='/spots/current' onClick={closeMenu}>Manage Spots</Link>

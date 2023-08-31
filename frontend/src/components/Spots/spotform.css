@@ -4,13 +4,14 @@
     margin: auto;
     padding: 20px;
     width: 500px;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .spot-form-div {
     border-bottom: 1px black solid;
     padding-bottom: 20px;
 }
+
 
 .location-blurb {
     font-size: 14;
@@ -77,6 +78,7 @@
     justify-content: space-between;
 }
 
+
 .lat-input {
     width: 245;
 }
@@ -91,11 +93,11 @@
 }
 
 .name-input {
-    width: 500;
+    width: 500px;
 }
 
 .price-input {
-    width: 480;
+    width: 500;
     margin-left: 10px;
 }
 

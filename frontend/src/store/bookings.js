@@ -41,7 +41,7 @@ export const deleteBookingAction = (bookingId) => ({
 //thunk 1. get all bookings
 export const fetchBookingsThunk = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`api/spots/${spotId}/bookings`);
-    // console.log("this is my resssss", response)
+    console.log("this is my resssss", response)
     if (response.ok) {
         const bookings = await response.json();
 
@@ -49,6 +49,8 @@ export const fetchBookingsThunk = (spotId) => async (dispatch) => {
         return bookings
     };
 };
+
+//thunk 2.get bookings by the current user
 
 
 
