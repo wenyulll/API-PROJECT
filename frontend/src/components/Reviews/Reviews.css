@@ -5,7 +5,7 @@
 .reviews-index-item {
     align-self: flex-start;
     margin-left: 0;
-    width: 500;
+    width: 500px;
     list-style-type: none;
 }
 
@@ -19,7 +19,7 @@ li {
     justify-content: flex-start;
     align-items: flex-start;
     padding-inline-start: 0;
-    width: 964;
+    width: 900px;
 }
 
 .reviewIndexItemContainer {
@@ -28,18 +28,18 @@ li {
 }
 
 .reviewIndexItem-name {
-    font-size: 16;
+    font-size: 16px;
     padding: 3px 0px;
 }
 
 .reviewIndexItem-date {
     color: gray;
-    font-size: 14;
+    font-size: 14px;
     padding: 3px 0px;
 }
 
 .reviewIndexItem-text {
-    font-size: 14;
+    font-size: 14px;
     padding: 5px 0px;
 }
 
