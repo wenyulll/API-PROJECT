@@ -41,7 +41,8 @@ export const deleteBookingAction = (bookingId) => ({
 //thunk 1. get all bookings
 export const fetchBookingsThunk = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`api/spots/${spotId}/bookings`);
-    console.log("this is my resssss", response)
+
+
     if (response.ok) {
         const bookings = await response.json();
 
@@ -52,15 +53,42 @@ export const fetchBookingsThunk = (spotId) => async (dispatch) => {
 
 //thunk 2.get bookings by the current user
 
+//thunk 3. create a booking
+export const createSpotBookingThunk = (data) => async (dispatch) => {
 
+    const { spotId, startDate, endDate } = data
+
+    const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ startDate, endDate }),
+
+        if(response.ok) {
+            const booking = await response.json();
+    await dispatch(createBookingAction(booking));
+    return booking;
+
+})
+    }
+}
 
 
 
 const initialStat = { allBookings: {}, singleBooking: {}, userBooking: {} }
 
 const bookingsReducer = (state = initialStat, action) => {
-    // let newState = {}
+
+    console.log("this is accccctionnnnnn", action);
+    let newState = {}
     switch (action.type) {
+
+        case CREATE_BOOKING:
+            newState = { ...state, allBookings: { ...state.allBookings }, singleBooking: {} };
+            const newBooking = { ...action.booking };
+            newState.allBookings[action.booking.id] = newBooking;
+            newState.singleBooking = newBooking;
+            newState.userBookings[action.booking.id] = newBooking;
+            return newState;
         default:
             return state;
     }

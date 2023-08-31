@@ -4,6 +4,7 @@ import { fetchSpotThunk } from '../../store/spots';
 import { useEffect } from 'react';
 import './spotShow.css';
 import ReviewIndex from '../Reviews/ReviewsIndex';
+import CreateBooking from '../Bookings/CreateBooking';
 
 function SpotShow() {
 
@@ -57,6 +58,7 @@ function SpotShow() {
                     <div className='spotDetails-reservation-buttonContainer'>
                         <button className='spotDetails-reservation-button' onClick={showAlert}>Reserve</button>
                     </div>
+                    <CreateBooking spot={spot} />
                 </div>
             </div>
             <div className='spotDetails-reviewsContainer'>
