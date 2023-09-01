@@ -42,7 +42,7 @@ export const deleteBookingAction = (bookingId) => ({
 export const fetchBookingsThunk = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`api/spots/${spotId}/bookings`);
 
-
+    // console.log('feeeeeeetch', response)
     if (response.ok) {
         const bookings = await response.json();
 
@@ -52,24 +52,32 @@ export const fetchBookingsThunk = (spotId) => async (dispatch) => {
 };
 
 //thunk 2.get bookings by the current user
+// export const fetchCurrentBooking = (spotId) = async (dispatch) => {
 
+// }
 //thunk 3. create a booking
 export const createSpotBookingThunk = (data) => async (dispatch) => {
+    try {
+        const { spotId, startDate, endDate } = data
 
-    const { spotId, startDate, endDate } = data
+        // console.log('spotId from backendddddd', spotId)
+        const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ startDate, endDate }),
+        })
 
-    const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ startDate, endDate }),
-
-        if(response.ok) {
+        if (response.ok) {
             const booking = await response.json();
-    await dispatch(createBookingAction(booking));
-    return booking;
+            await dispatch(createBookingAction(booking));
+            return booking;
+        }
+    } catch (err) {
 
-})
     }
+
+
+
 }
 
 
@@ -78,9 +86,15 @@ const initialStat = { allBookings: {}, singleBooking: {}, userBooking: {} }
 
 const bookingsReducer = (state = initialStat, action) => {
 
-    console.log("this is accccctionnnnnn", action);
+    // console.log("this is accccctionnnnnn", action);
     let newState = {}
     switch (action.type) {
+        case LOAD_BOOKINGS:
+            let allBookings = {};
+            action.booking.Bookings.forEach(booking => { allBookings[booking.id] = booking })
+            newState = { ...state }
+            newState.allBookings = allBookings
+            return newState;
 
         case CREATE_BOOKING:
             newState = { ...state, allBookings: { ...state.allBookings }, singleBooking: {} };
@@ -89,6 +103,8 @@ const bookingsReducer = (state = initialStat, action) => {
             newState.singleBooking = newBooking;
             newState.userBookings[action.booking.id] = newBooking;
             return newState;
+
+
         default:
             return state;
     }

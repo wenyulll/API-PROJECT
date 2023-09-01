@@ -22,10 +22,10 @@ function SpotShow() {
         dispatch(fetchSpotThunk(spotId))
     }, [dispatch, spotId]);
 
-    const showAlert = (e) => {
-        e.preventDefault();
-        alert('Feature Comming Soon');
-    }
+    // const showAlert = (e) => {
+    //     e.preventDefault();
+    //     alert('Feature Comming Soon');
+    // }
 
     if (!spot) return null;
 
@@ -55,9 +55,9 @@ function SpotShow() {
                         <span className='spotDetails-reservation-price'>${spot?.price ? parseInt(spot.price).toFixed(1) : 0} night</span>
                         <span className='spotDetails-reservation-rating'><i className='fas fa-star' />{spot.numReviews > 0 ? Number(spot.numReviews) === 1 ? `${Number(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review` : `${Number(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : ' New'}</span>
                     </div>
-                    <div className='spotDetails-reservation-buttonContainer'>
+                    {/* <div className='spotDetails-reservation-buttonContainer'>
                         <button className='spotDetails-reservation-button' onClick={showAlert}>Reserve</button>
-                    </div>
+                    </div> */}
                     <CreateBooking spot={spot} />
                 </div>
             </div>
