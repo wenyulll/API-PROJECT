@@ -29,7 +29,8 @@ const validateSpot = [
     check("name")
         .exists({ checkFalsy: true })
         .isLength({ max: 49 })
-        .matches(/^[a-zA-Z\s]+$/)
+        // .matches(/^[a-zA-Z\s]+$/)
+        .matches(/^[A-Za-z\s!@#$%^&*()_+={}\[\];:'"<>,.?~`|\\/-]+$/)
         .withMessage("Name must be less than 50 letters and must not contain numbers."),
     check("description")
         .exists({ checkFalsy: true })

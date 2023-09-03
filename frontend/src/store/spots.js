@@ -165,22 +165,9 @@ export const createSpotThunk = (createSpot) => async (dispatch) => {
 // }
 
 export const updateSpotThunk = (updateSpot) => async (dispatch) => {
-    const {
-        id,
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price } = updateSpot;
-
-    const response = await csrfFetch(`/api/spots/${id}`, {
-        method: 'PUT',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    try {
+        const {
+            id,
             address,
             city,
             state,
@@ -189,16 +176,35 @@ export const updateSpotThunk = (updateSpot) => async (dispatch) => {
             lng,
             name,
             description,
-            price
-        })
-    });
+            price } = updateSpot;
 
-    if (response.ok) {
-        const spot = await response.json();
-        dispatch(createSpotAction(spot))
-        return spot
-    } else {
-        const errors = await response.json();
+        const response = await csrfFetch(`/api/spots/${id}`, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                address,
+                city,
+                state,
+                country,
+                lat,
+                lng,
+                name,
+                description,
+                price
+            })
+        });
+
+        if (response.ok) {
+            const spot = await response.json();
+            dispatch(createSpotAction(spot))
+            return spot
+        }
+        // else {
+        //     const errors = await response.json();
+        //     return errors
+        // };
+    } catch (e) {
+        const errors = await e.json();
         return errors
     };
 }
